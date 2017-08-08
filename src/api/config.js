@@ -14,6 +14,10 @@ export const videoStoreUrl =  apiDomain + 'api/video';
 export const AkiraUrl =  apiDomain + 'api/akira';
 export const TagUrl =  apiDomain + 'api/tag';
 
+
+export const LoginUrl =  apiDomain + 'api/user/login';
+export const UserInfoUrl =  apiDomain + 'api/user/me';
+
 export const getHeader = function () {
   const tokenData = JSON.parse(window.localStorage.getItem('authUser'));
 

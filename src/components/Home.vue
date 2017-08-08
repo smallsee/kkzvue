@@ -15,8 +15,8 @@
                 <Menu active-name="1" theme="dark" width="auto">
                     <div class="layout-logo-left"></div>
                     <template v-for="(item,index) in $router.options.routes">
-                      <Submenu   :name="index+1">
-                        <template slot="title">
+                      <Submenu   :name="index+1" v-if="!item.hidden">
+                        <template slot="title" >
                             <Icon type="ios-navigate"></Icon>
                             {{item.name}}
                         </template>
