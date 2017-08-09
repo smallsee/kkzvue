@@ -1,13 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Video from '@/components/video/index'
-import VideoCreate from '@/components/video/create'
-import VideoUpdate from '@/components/video/update'
-import Article from '@/components/article/index'
-import Login from '@/components/login/index'
 import iView from 'iview'
 import auth from 'common/js/auth'
+
+//后台
+import Admin from '@/components/admin/index'
+import AdminVideo from '@/components/admin/video/index'
+import AdminVideoCreate from '@/components/admin/video/create'
+import AdminVideoUpdate from '@/components/admin/video/update'
+import AdminArticle from '@/components/admin/article/index'
+import AdminLogin from '@/components/admin/login/index'
+
+//前台
+import HomeApp from '@/components/home/index'
+import Home from '@/components/home/home/index'
+import Video from '@/components/home/video/index'
+import Artisan from '@/components/home/artisan/index'
+
+
 
 Vue.use(Router);
 
@@ -15,47 +25,62 @@ Vue.use(Router);
 const router =  new Router({
   routes: [
     {
-      path: '/login',
-      name: '登陆',
-      component: Login,
+      path: '/',
+      name: '前台主页',
+      component: HomeApp,
+      hidden: true,
+      children: [
+        { path: '/home', component: Home, name: '主页'},
+        { path: '/video', component: Video, name: '视频'},
+        { path: '/artisan', component: Artisan, name: '文章'},
+
+      ]
+    },
+
+    {
+      path: '/admin/login',
+      name: '后台登陆',
+      component: AdminLogin,
       hidden: true
     },
     {
-      path: '/',
+      path: '/admin',
       name: '视频',
-      component: Home,
+      component: Admin,
       meta: {
         requiresAuth: true
       },
       children: [
-        { path: '/video', component: Video, name: '视频列表页',index:'1-1',},
-        { path: '/video/create', component: VideoCreate, name: '视频添加页',index:'1-2',},
-        { path: '/video/update', component: VideoUpdate, name: '视频修改页',index:'1-3', hidden: true },
+        { path: '/admin/video', component: AdminVideo, name: '视频列表页',index:'1-1',},
+        { path: '/admin/video/create', component: AdminVideoCreate, name: '视频添加页',index:'1-2',},
+        { path: '/admin/video/update', component: AdminVideoUpdate, name: '视频修改页',index:'1-3', hidden: true },
 
       ]
     },
     {
-      path: '/',
+      path: '/admin',
       name: '文章',
-      component: Home,
+      component: Admin,
       meta: {
         requiresAuth: true
       },
       children: [
-        { path: '/article', component: Article, name: '文章列表页',index:'2-1',},
+        { path: '/admin/article', component: AdminArticle, name: '文章列表页',index:'2-1',},
       ]
     }
   ]
 })
+
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!auth.loggedIn()) {
-      next({
-        name: '登陆'
-      })
+      // next({
+      //   name: '后台登陆'
+      // })
+      next()
     } else {
       next()
     }

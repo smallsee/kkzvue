@@ -41,6 +41,6 @@ export default {
    * @return {boolean}
    */
   loggedIn () {
-    return !!storage.get(AuthUser).access_token && !!storage.get(AuthUser).user
+    return !!storage.get(AuthUser) && !!storage.get(AuthUser)
   }
 }

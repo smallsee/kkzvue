@@ -26,6 +26,8 @@ module.exports = {
       'components': resolve('src/components'),
       'base': resolve('src/base'),
       'api': resolve('src/api'),
+      'home': resolve('src/components/home'),
+      'admin': resolve('src/components/admin'),
     }
   },
   module: {

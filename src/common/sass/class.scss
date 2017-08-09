@@ -1,0 +1,56 @@
+.clearfix{
+  display: inline-block;
+  &:after{
+    display: block;
+    content: ".";
+    height: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+.w{
+  box-sizing: border-box;
+  width: 980px;
+  margin: 0 auto;
+
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.flex-row-between{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flex-column-between{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-row-around{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.no-margin-right{
+  margin-right: 0 !important;
+}
+.no-margin-bottom{
+  margin-bottom: 0 !important;
+}
+
+.float-left{
+  float: left;
+}
