@@ -46,9 +46,9 @@
                 </div>
                 <div class="layout-content">
                     <div class="layout-content-main">
-                      <keep-alive>
+
                         <router-view></router-view>
-                      </keep-alive>
+
                     </div>
                 </div>
             </i-col>

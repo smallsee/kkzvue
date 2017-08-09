@@ -358,6 +358,9 @@
       this.uploadList = this.$refs.upload.fileList;
       this.formValidate = this.$route.params.formValidate;
     },
+    beforeDestroy() {
+      this.formValidate = '';
+    },
     watch: {
 //      tagList(curVal,oldVal){
 //

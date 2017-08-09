@@ -6,10 +6,10 @@ export const imageDeleteUrl =  apiDomain + 'api/image/delete';
 export const loginUrl =  apiDomain + 'oauth/token';
 export const userUrl =  apiDomain + 'api/user';
 
-export const videoUrl =  apiDomain + 'api/video';
-export const videoStoreUrl =  apiDomain + 'api/video';
+export const videoUrl =  apiDomain + 'api/admin/video';
+export const videoStoreUrl =  apiDomain + 'api/admin/video';
 
-
+export const videoHomeUrl =  apiDomain + 'api/video';
 
 export const AkiraUrl =  apiDomain + 'api/akira';
 export const TagUrl =  apiDomain + 'api/tag';

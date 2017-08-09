@@ -1,7 +1,15 @@
 import axios from 'axios'
 import Mock from 'mockjs';
-import {videoUrl, videoStoreUrl, TagUrl, AkiraUrl} from "./config"
+import {videoUrl, videoStoreUrl, TagUrl, AkiraUrl, videoHomeUrl} from "./config"
 
+
+export function getHomeVideoList() {
+
+  return axios.get(videoHomeUrl).then((res) => {
+    return res.data
+  })
+
+}
 
 export function getVideoList() {
 

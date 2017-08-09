@@ -27,7 +27,7 @@
           </div>
       </div>
 
-    <Back-top></Back-top>
+
 
   </div>
 </template>
