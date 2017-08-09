@@ -27,6 +27,7 @@ const router =  new Router({
     {
       path: '/',
       name: '前台主页',
+      redirect: '/home',
       component: HomeApp,
       hidden: true,
       children: [

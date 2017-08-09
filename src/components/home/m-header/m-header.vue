@@ -15,7 +15,7 @@
       </span>
     </div>
 
-    <Input v-model="searchData" on-click="search" icon="search" placeholder="请输入..." style="width: 200px"></Input>
+    <Input v-model="searchData" @on-enter="search" @on-click="search" icon="search" placeholder="请输入搜索内容..." style="width: 200px"></Input>
   </div>
 </template>
 

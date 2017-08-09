@@ -1,9 +1,14 @@
 <template>
-  <div class="image-title-rate" :class="{ 'no-margin-right': isNoMarginRight }"  :style="{ width:  width+ 'px' }">
-    <a :href="url"><img :width="width" :height="imgHeight" v-lazy="img" alt=""></a>
-    <a :style="{ width:  width+ 'px' }" :href="url">sadsada</a>
-    <div  id="rate" :style="{ width:  width+ 'px' }">
-      <Rate :disabled="disabled" v-model="rateValue"></Rate>
+  <div class="image-title-rate clearfix" :class="{ 'no-margin-right': isNoMarginRight }"  :style="{ width:  width }">
+    <a class="thumb" :href="url" :style="{width:width,height:imgHeight}">
+      <img  v-lazy="img" alt="">
+    </a>
+
+    <a class="title word-break" :style="{ width:  width+ 'px', 'max-height': maxHeight,margin: titleMargin}" :href="url">{{title}}</a>
+    <div v-if="isRate"  id="rate" :style="{ width:  width}">
+      <Rate show-text  :disabled="disabled" v-model="rateValue">
+          <span style="color: #f5a623">{{ rateValueText }}</span>
+      </Rate>
     </div>
   </div>
 </template>
@@ -15,17 +20,37 @@
         type: Boolean,
         default: true
       },
+      titleMargin:{
+        type: String,
+        default: '10px 0'
+      },
+      isRate: {
+        type: Boolean,
+        default: true
+      },
       rateValue: {
         type: Number,
         default: 4
       },
+      rateValueText: {
+        type: String,
+        default: '8星'
+      },
       width: {
-        type: Number,
-        default: 135
+        type: String,
+        default: '135px'
+      },
+      maxHeight: {
+        type: String,
+        default: '13px'
+      },
+      title:{
+        type: String,
+        default: '萨达UI我的期望和iasdasdaasdsadassdasd'
       },
       imgHeight: {
-        type: Number,
-        default: 170
+        type: String,
+        default: '170px'
       },
       url:{
         type: String,
@@ -42,6 +67,7 @@
 
     },
     mounted() {
+
     }
   }
 </script>
@@ -53,18 +79,26 @@
     background-color: #ffffff;
     margin-right: 10px;
     margin-top: 10px;
-    a{
+    .thumb{
+      overflow: hidden;
       display: block;
+      img{
+        width: 100%;
+      }
+    }
+    .title{
       text-align: center;
-      margin: 5px 0;
+      display: block;
+      margin: 10px 0;
+      box-sizing: border-box;
+      padding: 0 10px;
+      font-size: 14px;
     }
     #rate{
       text-align: center;
       .ivu-rate{
         font-size: 12px;
-
       }
-
     }
 
   }

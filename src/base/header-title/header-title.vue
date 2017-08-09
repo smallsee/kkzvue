@@ -4,7 +4,7 @@
     <h4  >{{headerTitle}}</h4>
     <ul v-if="!more">
       <li v-for="item in headerText">
-        <router-link :to="item.url">
+        <router-link class="header-title_a" :to="item.url">
           {{item.text}}
         </router-link>
 
@@ -70,6 +70,9 @@
       li{
         float: left;
         margin-right: 10px;
+        a{
+          font-size: 14px;
+        }
       }
     }
   }

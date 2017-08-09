@@ -1,13 +1,13 @@
 <template>
   <div class="kkz-banner">
-    <div class="mask-background">
+    <div class="mask-background" style="width: 100%;overflow: hidden">
       <img src="./1.jpg" alt="">
     </div>
     <div class="banner w flex-row-between">
       <div class="left">
 
         <!--这边也要改造-->
-        <Carousel dots="none" autoplay v-model="banner_item" :on-change="bannerChange">
+        <Carousel  dots="none" autoplay v-model="banner_item" @on-change="bannerChange">
           <Carousel-item>
             <image-title-cover :width="430" :height="300"></image-title-cover>
           </Carousel-item>
@@ -60,7 +60,7 @@
     },
     methods: {
       bannerChange(oldValue, value) {
-        console.log(oldValue,value)
+
       }
     },
     components:{
