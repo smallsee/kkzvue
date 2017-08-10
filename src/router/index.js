@@ -15,6 +15,8 @@ import AdminLogin from '@/components/admin/login/index'
 import HomeApp from '@/components/home/index'
 import Home from '@/components/home/home/index'
 import Video from '@/components/home/video/index'
+import VideoDetail from '@/components/home/video/detail'
+import VideoShow from '@/components/home/video/show'
 import Artisan from '@/components/home/artisan/index'
 
 
@@ -32,9 +34,10 @@ const router =  new Router({
       hidden: true,
       children: [
         { path: '/home', component: Home, name: '主页'},
-        { path: '/video', component: Video, name: '视频'},
+        { path: '/video', component: Video, name: '视频',},
+        { path: '/video/detail/:id', component: VideoDetail, name: '视频详情页',meta: { notKeepAlive: true }},
+        { path: '/video/:id', component: VideoShow, name: '视频播放页',meta: { notKeepAlive: true }},
         { path: '/artisan', component: Artisan, name: '文章'},
-
       ]
     },
 

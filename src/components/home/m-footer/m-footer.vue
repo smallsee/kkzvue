@@ -13,6 +13,7 @@
 <style scoped lang="scss" rel="stylesheet/scss">
   @import "../../../common/sass/variable";
   .kkz-footer{
+    border-top: 1px solid rgba(0, 0, 0, 0.11);
     background-color: $color-background;
     box-sizing: border-box;
     margin-top: 20px;

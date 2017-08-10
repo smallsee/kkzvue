@@ -1,5 +1,6 @@
 <template>
-  <div class="kkz-header w flex-row-between">
+  <div class="kkz-header ">
+    <div class="w flex-row-between">
     <div class="flex-row">
 
       <a href="#" class="logo">
@@ -16,6 +17,7 @@
     </div>
 
     <Input v-model="searchData" @on-enter="search" @on-click="search" icon="search" placeholder="请输入搜索内容..." style="width: 200px"></Input>
+    </div>
   </div>
 </template>
 
@@ -36,8 +38,10 @@
 
 <style scoped lang="scss" rel="stylesheet/scss">
   .kkz-header{
+    background-color: #ffffff;
     box-sizing: border-box;
-    padding-top: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
     .logo{
       margin-right: 20px;
     }

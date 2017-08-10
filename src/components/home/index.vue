@@ -3,9 +3,12 @@
     <tab></tab>
     <m-header></m-header>
     <div>
+
       <keep-alive>
-        <router-view></router-view>
+        <router-view v-if="!$route.meta.notKeepAlive"></router-view>
       </keep-alive>
+      <router-view v-if="$route.meta.notKeepAlive"></router-view>
+
     </div>
 
     <m-footer></m-footer>
@@ -19,6 +22,9 @@
   import Tab from 'home/tab/tab'
 
   export default {
+    created() {
+      console.log(this.$route.meta.notKeepAlive)
+    },
     components: {
       MHeader,
       Tab,

@@ -37,7 +37,7 @@
               <image-title-rate   width="172px" imgHeight="220px"
                     :isNoMarginRight="(index+1)%4 === 0 ? true : false"
                     :img="item.thumb"
-                    :url="'video/'+item.id"
+                    :url="'/#/video/detail/'+item.id"
                     :title="item.title"
               ></image-title-rate>
             </li>
@@ -61,8 +61,10 @@
           </div>
 
           <template v-for="(item,index) in weekDataNow">
-            <div class="dateVideo flex-row-between">
-              <a :href="'video/'+item.id" class="title">{{item.title}}</a>
+            <div class="dateVideo flex-row-between word-break">
+              <router-link class="title" :to="{path: '/video/detail/'+item.id,params: { id: item.id }}">
+                {{item.title}}
+              </router-link>
               <span class="now-num">第{{item.files_count}}话</span>
             </div>
           </template>
@@ -105,7 +107,7 @@
 
         dataTotal:[],
         total: 0,
-        pageSize: 12
+        pageSize: 16
       }
     },
     created() {
@@ -257,10 +259,7 @@
   @import "../../../common/sass/variable";
   .kkz-video{
     box-sizing: border-box;
-    padding-top: 10px;
-
     .main{
-      margin-top: 20px;
       .main-left{
         width: 720px;
         height: auto;
@@ -276,6 +275,7 @@
           }
           .tag-item_content{
             cursor: pointer;
+            line-height: 22px;
             margin-right: 5px;
 
             &.active{
