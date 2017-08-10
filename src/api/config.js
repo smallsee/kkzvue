@@ -11,8 +11,9 @@ export const videoStoreUrl =  apiDomain + 'api/admin/video';
 
 export const videoHomeUrl =  apiDomain + 'api/video';
 
-export const AkiraUrl =  apiDomain + 'api/akira';
-export const TagUrl =  apiDomain + 'api/tag';
+export const akiraUrl =  apiDomain + 'api/akira';
+export const tagUrl =  apiDomain + 'api/tag';
+export const weekUrl =  apiDomain + 'api/week';
 
 
 export const LoginUrl =  apiDomain + 'api/user/login';

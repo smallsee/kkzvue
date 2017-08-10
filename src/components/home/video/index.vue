@@ -27,7 +27,7 @@
 
         </div>
 
-        <div class="video">
+        <div class="kkz-video">
 
           <header-title headerTitle="全部动漫" ></header-title>
           <ul class="clearfix">
@@ -53,15 +53,22 @@
       <div class="main-right">
         <header-title headerTitle="新番更新时间" ></header-title>
 
-        <div class="date-nav flex-row-around">
-          <span class="date-item">周一</span>
-          <span class="date-item">周二</span>
-          <span class="date-item">周三</span>
-          <span class="date-item">周四</span>
-          <span class="date-item">周五</span>
-          <span class="date-item">周六</span>
-          <span class="date-item">周日</span>
+        <div class="kkz-weekDate">
+          <div class="date-nav flex-row-around">
+            <template v-for="(item,index) in week">
+              <span :class="{active: weekNow == item.name }" class="date-item" @click="_changeWeek(item.name)">{{item.name}}</span>
+            </template>
+          </div>
+
+          <template v-for="(item,index) in weekDataNow">
+            <div class="dateVideo flex-row-between">
+              <a :href="'video/'+item.id" class="title">{{item.title}}</a>
+              <span class="now-num">第{{item.files_count}}话</span>
+            </div>
+          </template>
         </div>
+
+
       </div>
     </div>
 
@@ -73,7 +80,7 @@
 <script>
   import HeaderTitle from 'base/header-title/header-title'
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
-  import {getHomeVideoList,getTagList, getAkiraList} from 'api/video';
+  import {getHomeVideoList,getTagList, getAkiraList, getWeekList} from 'api/video';
   import {ERR_OK} from 'api/config';
 
   export default {
@@ -91,8 +98,10 @@
         akiraNow: [],
         akiraDataNow: [],
 
-        date:"周一",
-        newData: [],
+        week: [],
+        weekNow:"周一",
+        weekData: [],
+        weekDataNow: [],
 
         dataTotal:[],
         total: 0,
@@ -100,9 +109,11 @@
       }
     },
     created() {
+      this._getDay();
       this._getVideoList();
       this._getTagList();
-      this._getAkiraList()
+      this._getAkiraList();
+      this._getWeekList();
     },
     methods:{
       _refreshData(arr){
@@ -116,20 +127,41 @@
           }
         })
       },
+      _getDay() {
+         this.weekNow = "周" + "日一二三四五六".split("")[new Date().getDay()];
+      },
+      _getWeekList(){
+        getWeekList().then(res => {
+          if (res.meta.errno === ERR_OK){
+            this.week = res.data;
+          }
+        })
+      },
+      _changeWeek(name){
+        this.weekNow = name;
+        this._getNowWeekData();
+      },
+      _getNowWeekData() {
+        this.weekDataNow = [];
+        this.weekData.forEach((item) => {
+          if (this.$_.includes(item.update_date,this.weekNow)){
+            this.weekDataNow.push(item);
+          }
+        })
+
+      },
       _getVideoList() {
         getHomeVideoList().then(res => {
           if (res.meta.errno === ERR_OK){
             this.dataTotal = res.data;
             this.data = this.dataTotal.slice(0,this.pageSize);
             this.total = this.dataTotal.length;
-
             this.dataTotal.forEach((item) => {
               if (item.is_new === true) {
-                this.newData.push(item);
+                this.weekData.push(item);
               }
             });
-            console.log(this.newData[10].update_date)
-
+            this._getNowWeekData();
           }
         })
       },
@@ -259,15 +291,44 @@
       .main-right{
         width: 250px;
         height: auto;
-        .date-nav{
-          .date-item{
-            cursor: pointer;
-            font-size: 12px;
-            &:hover{
-              color: $color-border-red-d;
+        .kkz-weekDate{
+          .date-nav{
+            margin-bottom: 10px;
+            .date-item{
+              cursor: pointer;
+              font-size: 12px;
+              &:hover{
+                color: $color-border-red-d;
+              }
+              &.active{
+                color: #c34b69;
+              }
+            }
+          }
+          .dateVideo{
+            border-bottom: 1px dashed rgba(80, 72, 72, 0.14);
+            padding: 10px 0;
+            font-size: 13px;
+
+            .title{
+              color: #118D93;
+              line-height: 22px;
+              text-decoration: none;
+              cursor: pointer;
+              &:hover{
+                color: $color-border-red-d;
+              }
+            }
+            .now-num{
+              font-size: 12px;
+              color: #999;
+              margin: 5px 0;
             }
           }
         }
+
+
+
       }
     }
   }

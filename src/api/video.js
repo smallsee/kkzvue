@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Mock from 'mockjs';
-import {videoUrl, videoStoreUrl, TagUrl, AkiraUrl, videoHomeUrl} from "./config"
+import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl} from "./config"
 
 
 export function getHomeVideoList() {
@@ -21,7 +21,7 @@ export function getVideoList() {
 
 
 export function getAkiraList() {
-  return axios.get(AkiraUrl).then((res) => {
+  return axios.get(akiraUrl).then((res) => {
     return res.data;
   })
 
@@ -29,12 +29,18 @@ export function getAkiraList() {
 
 
 export function getTagList() {
-  return axios.get(TagUrl).then((res) => {
+  return axios.get(tagUrl).then((res) => {
     return res.data;
   })
 
 }
 
+export function getWeekList() {
+  return axios.get(weekUrl).then((res) => {
+    return res.data;
+  })
+
+}
 
 export function postVideoList(formData) {
 
