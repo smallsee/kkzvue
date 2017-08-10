@@ -12,7 +12,7 @@
             <span class="tag-item_title">声优:</span>
 
             <Select @on-change="_changSelect" class="akira-select" v-model="akiraNow" filterable multiple size="large" >
-              <Option v-for="item in akiraData" :value="item.name" :key="item.name">{{ item.name }}</Option>
+              <Option  v-for="item in akiraData" :value="item.name" :key="item.name">{{ item.name }}</Option>
             </Select>
           </p>
 
@@ -28,6 +28,7 @@
         </div>
 
         <div class="video">
+
           <header-title headerTitle="全部动漫" ></header-title>
           <ul class="clearfix">
 
@@ -48,10 +49,19 @@
           </div>
         </div>
 
-
       </div>
       <div class="main-right">
-        后面再弄这个
+        <header-title headerTitle="新番更新时间" ></header-title>
+
+        <div class="date-nav flex-row-around">
+          <span class="date-item">周一</span>
+          <span class="date-item">周二</span>
+          <span class="date-item">周三</span>
+          <span class="date-item">周四</span>
+          <span class="date-item">周五</span>
+          <span class="date-item">周六</span>
+          <span class="date-item">周日</span>
+        </div>
       </div>
     </div>
 
@@ -73,7 +83,6 @@
 
         screenData:[],
 
-
         tagData: [],
         tagNow: "",
         tagDataNow: [],
@@ -81,6 +90,9 @@
         akiraData: [],
         akiraNow: [],
         akiraDataNow: [],
+
+        date:"周一",
+        newData: [],
 
         dataTotal:[],
         total: 0,
@@ -110,6 +122,14 @@
             this.dataTotal = res.data;
             this.data = this.dataTotal.slice(0,this.pageSize);
             this.total = this.dataTotal.length;
+
+            this.dataTotal.forEach((item) => {
+              if (item.is_new === true) {
+                this.newData.push(item);
+              }
+            });
+            console.log(this.newData[10].update_date)
+
           }
         })
       },
@@ -125,38 +145,38 @@
         if (!this.akiraDataNow.length > 0 && !this.tagDataNow.length){
           this._refreshData(this.dataTotal);
         }else{
-          if (this.akiraDataNow.length > 0){
-            this._refreshData(this.akiraDataNow);
-          }
-          if (this.tagDataNow.length > 0){
-            this._refreshData(this.tagDataNow);
-          }
+//          if (this.akiraDataNow.length > 0){
+//            this._refreshData(this.akiraDataNow);
+//          }
+//          if (this.tagDataNow.length > 0){
+//            this._refreshData(this.tagDataNow);
+//          }
+          this._refreshData(this.$_.union(this.akiraDataNow,this.tagDataNow));
         }
       },
       _dataRemake() {
          if (this.akiraDataNow.length > 0 && this.tagDataNow.length > 0){
+           this.screenData = this.$_.intersection(this.akiraDataNow, this.tagDataNow)
+           this._refreshData(this.screenData);
 
-           this.akiraDataNow.forEach((akira) => {
-             this.tagDataNow.forEach((tag) => {
-                 if (akira.title === tag.title){
-                   this.screenData.push(akira)
-                 }
-             });
-           });
-           let es = [...new Set(this.screenData)];
-           this.data = es.slice(0,this.pageSize);
-           this.total = es.length;
+//           this.akiraDataNow.forEach((akira) => {
+//             this.tagDataNow.forEach((tag) => {
+//                 if (akira.title === tag.title){
+//                   this.screenData.push(akira)
+//                 }
+//
+//             });
+//           });
+//           this._refreshData([...new Set(this.screenData)]);
          }
       },
       _changSelect(){
         this.akiraDataNow = [];
         this._refresh();
 
-
         if(this.akiraNow.length > 0){
           let dataTotal = this.dataTotal;
           dataTotal.forEach((item) => {
-
             this.akiraNow.forEach((selfAkira) => {
               item.akira.forEach((akira) => {
                   if (selfAkira === akira){
@@ -165,7 +185,7 @@
               });
             });
           });
-          this._refreshData(this.akiraDataNow);
+          this._refreshData(this.$_.union(this.akiraDataNow));
           this._dataRemake();
         }
       },
@@ -239,6 +259,15 @@
       .main-right{
         width: 250px;
         height: auto;
+        .date-nav{
+          .date-item{
+            cursor: pointer;
+            font-size: 12px;
+            &:hover{
+              color: $color-border-red-d;
+            }
+          }
+        }
       }
     }
   }

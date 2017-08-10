@@ -335,6 +335,15 @@
       handleSubmit (name) {
         let formData = this.formValidate;
         console.log(formData)
+        postVideoList(formData).then((res) => {
+          if (res.meta.errno === ERR_OK){
+            this.formValidate.thumb = '';
+            this.$Message.success('提交成功!');
+            this.$router.push({
+              path: `/video`
+            });
+          }
+        });
         this.$refs[name].validate((valid) => {
           if (valid) {
             postVideoList(formData).then((res) => {

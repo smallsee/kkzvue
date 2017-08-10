@@ -7,11 +7,13 @@ import fastclick from 'fastclick';
 import VueLazyload from 'vue-lazyload'
 import Vuex from 'vuex'
 import iView from 'iview';
+import _ from 'lodash';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
 import 'common/sass/index.scss'
 import 'common/css/font-awesome.min.css'
 
 Vue.prototype.$axios = axios;
+Vue.prototype.$_ = _;
 
 Vue.use(iView);
 Vue.use(Vuex);

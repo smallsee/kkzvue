@@ -1,7 +1,7 @@
 <template>
   <div class="kkz-footer">
     <div class="w">
-      我一个人就是一个军队
+      我一个人就是一支军队
     </div>
   </div>
 </template>
