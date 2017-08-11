@@ -1,19 +1,21 @@
 <template>
-  <div class="image-title-row flex-row-between">
+  <div class="image-title-row flex-row" :class="{'image-title-border-bottom': isBorderBottom}">
 
-    <a class="user-thumb" :href="userUrl"><img v-lazy="img" :style="{width: imgSize, height: imgSize}"></a>
+    <a class="user-thumb" :href="videoUrl">
+      <img v-lazy="img" :style="{width: imgSize, height: imgSize}" :class="{box: isBox}">
+    </a>
 
     <div class="content">
 
       <a  :href="videoUrl">
-        <h3 class="title word-break" :style="{'max-height':maxHeight}">{{videoTitle}}</h3>
+        <h3 class="title word-break"  v-bind:class="classObject" :style="{'max-height':maxHeight}">{{videoTitle}}</h3>
       </a>
 
-      <div class="video-info">
+      <div class="video-info" :class="{'flex-row-end' : isFlexEnd}">
         <a class="user-name"  :href="userUrl">{{userName}}</a>
         <span>{{time}}</span>
-        |
-        <span>{{num}}部动漫</span>
+        &nbsp;|&nbsp;
+        <span>{{num}}</span>
       </div>
     </div>
   </div>
@@ -22,6 +24,22 @@
 <script>
   export default {
     props:{
+      isBox:{
+        type:Boolean,
+        default: false
+      },
+      isFlexEnd:{
+        type:Boolean,
+        default: false
+      },
+      isBorderBottom:{
+        type:Boolean,
+        default: true
+      },
+      colorClass:{
+        type:String,
+        default: "a-blue-pink"
+      },
       img:{
         type:String,
         default: "http://oeu14qdl0.bkt.clouddn.com/68a4a3745c2de67f80b8097b2a0f7403zzzzzzzzs.png"
@@ -49,31 +67,43 @@
 
       userName:{
         type: String,
-        default: "小海"
+        default: ""
       },
       time:{
         type: String,
         default: "44分钟前"
       },
       num:{
-        type: Number,
-        default: 38
+        type: String,
+        default: "38部动漫"
       },
+    },
+    computed: {
+      classObject: function () {
+        return this.colorClass
+      }
     }
   }
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
+  .image-title-border-bottom{
+    border-bottom: 1px dashed rgba(224, 224, 224, 0.61);;
+  }
   .image-title-row{
     padding-top: 10px;
     .user-thumb{
       margin-right: 10px;
       img{
         border-radius: 50%;
+        &.box{
+          border-radius: 0;
+        }
       }
     }
     .content{
       margin-top: 10px;
+      min-width: 195px;
       .title{
         color: #444;
         text-decoration: none;

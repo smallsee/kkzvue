@@ -1,8 +1,10 @@
 <template>
   <div class="image-title-rate clearfix" :class="{ 'no-margin-right': isNoMarginRight }"  :style="{ width:  width }">
-    <a class="thumb" :href="url" :style="{width:width,height:imgHeight}">
-      <img  v-lazy="img" alt="">
-    </a>
+
+
+    <router-link class="thumb"   :to="url" :style="{width:width,height:imgHeight}">
+      <img  v-lazy="img" alt="" @click.stop="_changeData">
+    </router-link>
 
     <a class="title word-break" :style="{ width:  width+ 'px', 'max-height': maxHeight,margin: titleMargin}" :href="url">{{title}}</a>
     <div v-if="isRate"  id="rate" :style="{ width:  width}">
@@ -63,11 +65,17 @@
       isNoMarginRight:{
         type: Boolean,
         default: false
+      },
+      id:{
+        type: Number,
+        default: 0
       }
 
     },
-    mounted() {
-
+    methods:{
+      _changeData() {
+        this.$emit('select', this.id);
+      }
     }
   }
 </script>

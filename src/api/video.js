@@ -1,11 +1,24 @@
 import axios from 'axios'
 import Mock from 'mockjs';
-import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl} from "./config"
+import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl,videoRecommendUrl} from "./config"
 
 
 export function getHomeVideoList() {
 
   return axios.get(videoHomeUrl).then((res) => {
+    return res.data
+  })
+
+}
+
+export function getRecommendVideoList(condition) {
+
+  return axios.get(videoRecommendUrl,{
+    params:{
+      tagList: condition.tagList,
+      akiraList: condition.akiraList,
+    }
+  }).then((res) => {
     return res.data
   })
 

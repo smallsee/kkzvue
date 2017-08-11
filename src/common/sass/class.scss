@@ -26,6 +26,13 @@
   display: flex;
   flex-direction: column;
 }
+
+.flex-row-end{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
 .flex-row-between{
   display: flex;
   flex-direction: row;
@@ -58,4 +65,12 @@
 .word-break{
   word-break : break-all;
   overflow:hidden;
+}
+
+.a-blue-pink{
+  font-size: 14px !important;
+  color: #37A !important;
+  &:hover{
+    color: #c34b69 !important;
+  }
 }

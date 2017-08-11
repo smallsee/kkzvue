@@ -37,7 +37,7 @@
               <image-title-rate   width="172px" imgHeight="220px"
                     :isNoMarginRight="(index+1)%4 === 0 ? true : false"
                     :img="item.thumb"
-                    :url="'/#/video/detail/'+item.id"
+                    :url="'/video/detail/'+item.id"
                     :title="item.title"
               ></image-title-rate>
             </li>
@@ -50,26 +50,41 @@
         </div>
 
       </div>
-      <div class="main-right">
-        <header-title headerTitle="新番更新时间" ></header-title>
 
-        <div class="kkz-weekDate">
-          <div class="date-nav flex-row-around">
-            <template v-for="(item,index) in week">
-              <span :class="{active: weekNow == item.name }" class="date-item" @click="_changeWeek(item.name)">{{item.name}}</span>
+      <div class="main-right">
+        <div class="update-video">
+          <header-title headerTitle="新番更新时间" ></header-title>
+          <div class="kkz-weekDate">
+            <div class="date-nav flex-row-around">
+              <template v-for="(item,index) in week">
+                <span :class="{active: weekNow == item.name }" class="date-item" @click="_changeWeek(item.name)">{{item.name}}</span>
+              </template>
+            </div>
+
+            <template v-for="(item,index) in weekDataNow">
+              <div class="dateVideo flex-row-between word-break">
+                <router-link class="title" :to="{path: '/video/detail/'+item.id,params: { id: item.id }}">
+                  {{item.title}}
+                </router-link>
+                <span class="now-num">第{{item.files_count}}话</span>
+              </div>
             </template>
           </div>
-
-          <template v-for="(item,index) in weekDataNow">
-            <div class="dateVideo flex-row-between word-break">
-              <router-link class="title" :to="{path: '/video/detail/'+item.id,params: { id: item.id }}">
-                {{item.title}}
-              </router-link>
-              <span class="now-num">第{{item.files_count}}话</span>
-            </div>
-          </template>
         </div>
 
+        <div class="hot-video">
+          <header-title headerTitle="热门番剧" ></header-title>
+          <template v-for="(item,index) in sortData">
+              <image-title-row
+                  :isBox="true"
+                  :isFlexEnd="true"
+                  :img="item.thumb"
+                  :videoTitle="item.title"
+                  :videoUrl="'/#/video/detail/' + item.id"
+                  :num="item.see + '次观看'"
+              ></image-title-row>
+          </template>
+        </div>
 
       </div>
     </div>
@@ -84,6 +99,7 @@
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
   import {getHomeVideoList,getTagList, getAkiraList, getWeekList} from 'api/video';
   import {ERR_OK} from 'api/config';
+  import ImageTitleRow from 'base/image-title-row/image-title-row'
 
   export default {
     data() {
@@ -106,6 +122,8 @@
         weekDataNow: [],
 
         dataTotal:[],
+        sortData:[],
+        sortPage:10,
         total: 0,
         pageSize: 16
       }
@@ -158,12 +176,14 @@
             this.dataTotal = res.data;
             this.data = this.dataTotal.slice(0,this.pageSize);
             this.total = this.dataTotal.length;
+
             this.dataTotal.forEach((item) => {
               if (item.is_new === true) {
                 this.weekData.push(item);
               }
             });
             this._getNowWeekData();
+            this.sortData = this.$_.orderBy(this.dataTotal, 'see', 'desc').slice(0,this.sortPage);
           }
         })
       },
@@ -190,7 +210,7 @@
       },
       _dataRemake() {
          if (this.akiraDataNow.length > 0 && this.tagDataNow.length > 0){
-           this.screenData = this.$_.intersection(this.akiraDataNow, this.tagDataNow)
+           this.screenData = this.$_.intersection(this.akiraDataNow, this.tagDataNow);
            this._refreshData(this.screenData);
 
 //           this.akiraDataNow.forEach((akira) => {
@@ -228,8 +248,8 @@
         this._refresh();
         this.tagNow = name;
         if(this.tagNow){
-          let dataTotal = this.dataTotal;
-          dataTotal.forEach((item) => {
+
+          this.dataTotal.forEach((item) => {
 
                 item.tag.forEach((tag) => {
                   if (tag === this.tagNow){
@@ -250,7 +270,8 @@
     },
     components:{
       HeaderTitle,
-      ImageTitleRate
+      ImageTitleRate,
+      ImageTitleRow
     }
   }
 </script>
