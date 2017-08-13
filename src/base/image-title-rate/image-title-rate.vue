@@ -2,11 +2,12 @@
   <div class="image-title-rate clearfix" :class="{ 'no-margin-right': isNoMarginRight }"  :style="{ width:  width }">
 
 
-    <router-link class="thumb"   :to="url" :style="{width:width,height:imgHeight}">
+    <a class="thumb"   :href="url" :style="{width:width,height:imgHeight}">
       <img  v-lazy="img" alt="" @click.stop="_changeData">
-    </router-link>
+    </a>
 
-    <a class="title word-break" :style="{ width:  width+ 'px', 'max-height': maxHeight,margin: titleMargin}" :href="url">{{title}}</a>
+    <a @click.stop="_changeData" class="title word-break" :style="{ width:  width+ 'px', 'max-height': maxHeight,margin: titleMargin}" :href="url">{{title}}</a>
+
     <div v-if="isRate"  id="rate" :style="{ width:  width}">
       <Rate show-text  :disabled="disabled" v-model="rateValue">
           <span style="color: #f5a623">{{ rateValueText }}</span>

@@ -16,6 +16,7 @@ export const videoRecommendUrl =  apiDomain + 'api/video/recommend';
 export const akiraUrl =  apiDomain + 'api/akira';
 export const tagUrl =  apiDomain + 'api/tag';
 export const weekUrl =  apiDomain + 'api/week';
+export const commitUrl =  apiDomain + 'api/commit';
 
 
 export const LoginUrl =  apiDomain + 'api/user/login';

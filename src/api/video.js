@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Mock from 'mockjs';
-import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl,videoRecommendUrl} from "./config"
+import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl,videoRecommendUrl,commitUrl} from "./config"
 
 
 export function getHomeVideoList() {
@@ -100,6 +100,24 @@ export function deleteVideo(id) {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGkvdXNlci9sb2dpbiIsImlhdCI6MTUwMjA5Mzc0NCwiZXhwIjoxNTAyNjk4NTQ0LCJuYmYiOjE1MDIwOTM3NDQsImp0aSI6ImtiMTlHcVdWU0ttNDhEQ2gifQ.MHkdPU1wRgRkPvcvIzAYLX6AOF27-RWkEw7xvRyQ1sw'
     }
   }).then((res) => {
+    return res.data;
+  })
+}
+
+
+export function postStoreCommit(id,type,commit) {
+  return axios({
+    method: 'post',
+    url: commitUrl,
+    data:{
+      id: id,
+      type: type,
+      commit: commit
+    },
+    params: {
+      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGkvdXNlci9sb2dpbiIsImlhdCI6MTUwMjYwNDMxMywiZXhwIjoxNTAzMjA5MTEzLCJuYmYiOjE1MDI2MDQzMTMsImp0aSI6IjMxYnE3NHlRVWZ2WElscXgifQ.tJFNMF1Fc7-LXNif8PU3xYTHmjiR36CDiV6TXTo7cvs'
+    }
+  }).then(res => {
     return res.data;
   })
 }

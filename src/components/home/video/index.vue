@@ -33,14 +33,16 @@
           <ul class="clearfix">
 
             <template v-for="(item,index) in data">
+
             <li style="float: left">
               <image-title-rate   width="172px" imgHeight="220px"
                     :isNoMarginRight="(index+1)%4 === 0 ? true : false"
                     :img="item.thumb"
-                    :url="'/video/detail/'+item.id"
+                    :url="'/#/video/detail/'+item.id"
                     :title="item.title"
               ></image-title-rate>
             </li>
+
             </template>
 
           </ul>

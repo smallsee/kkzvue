@@ -41,6 +41,10 @@
         type: Boolean,
         default: false
       },
+      isShowBorder: {
+        type: Boolean,
+        default: true
+      },
       url: {
         type: String,
         default: '#'

@@ -1,20 +1,31 @@
 <template>
   <div class="kkz-commit flex-row">
-    <a class="user-thumb" :href="userUrl"><img v-lazy="img" :style="{width: imgSize, height: imgSize}"></a>
+    <a class="user-thumb" :href="userUrl">
+      <img v-lazy="img" :style="{width: imgSize, height: imgSize}">
+    </a>
 
     <div class="content">
       <p class="user-commit word-break" :style="{ 'max-height':maxHeight }">
         <a class="user-name" :href="userUrl">{{userName}} :</a>
-        年好大首都斯爱豆请勿我偶尔UI请我ueio阿萨所迫
+        {{commitText}}
       </p>
 
       <div class="from-video flex-row-between">
 
-        <div class="from-video_name word-break" :style="{ 'max-width':maxWidth }">
+        <div v-show="isShowVideo" class="from-video_name word-break" :style="{ 'max-width':maxWidth }">
           作品: <a :href="videoUrl" >{{videoTitle}}</a>
         </div>
 
-        <span>{{time}}</span>
+        <span>
+          <span v-if="!isShowVideo">{{loushu}} 楼  |</span>
+          {{time}}
+        </span>
+
+        <div v-show="!isShowVideo" class="reply">
+          <span @click.stop="_commitReply">回复</span>
+          |
+          <span @click.stop="_commitUp">点赞</span>
+        </div>
       </div>
     </div>
   </div>
@@ -23,6 +34,22 @@
 <script>
   export default {
     props:{
+      loushu:{
+        type:Number(),
+        default: 0
+      },
+      id:{
+        type:Number,
+        default: 0
+      },
+      commitText:{
+        type:String,
+        default: "请输入评论"
+      },
+      isShowVideo:{
+        type:Boolean,
+        default: true
+      },
       img:{
         type:String,
         default: "http://oeu14qdl0.bkt.clouddn.com/68a4a3745c2de67f80b8097b2a0f7403zzzzzzzzs.png"
@@ -59,6 +86,14 @@
         type: String,
         default: "44分钟前"
       },
+    },
+    methods:{
+      _commitReply(){
+        this.$emit('commitReply', this.id);
+      },
+      _commitUp() {
+        this.$emit('commitUp', this.id);
+      }
     }
   }
 </script>
@@ -75,6 +110,7 @@
       }
     }
     .content{
+      width: 100%;
       .user-commit{
         letter-spacing: .02em;
         line-height: 21px;
@@ -93,6 +129,16 @@
         color: #999;
         margin: 10px 0;
         font-size: 12px;
+      }
+      .reply{
+        span{
+          cursor: pointer;
+          color: #118D93;
+          margin: 0 5px;
+          &:hover{
+            color: #c34b69 !important;
+          }
+        }
       }
     }
   }

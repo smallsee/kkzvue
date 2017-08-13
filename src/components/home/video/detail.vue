@@ -100,7 +100,7 @@
                                         width="172px" imgHeight="220px"
                                       :isNoMarginRight="(index+1)%4 === 0 ? true : false"
                                       :img="item.thumb"
-                                      :url="'/video/detail/'+item.id"
+                                      :url="'/#/video/detail/'+item.id"
                                       :title="item.title"
                                       :id="item.id"
                                       @select="_changeData"
@@ -111,6 +111,29 @@
               </template>
 
             </ul>
+          </div>
+
+          <div class="commit">
+
+            <write-commit @commitSubmit="_commitSubmit"></write-commit>
+
+
+            <header-title :headerTitle="'精彩评论'"></header-title>
+
+            <div class="commit-page flex-row-end">
+              <Page   simple :total="commitTotal" :page-size="commitPageSize" :current="commitNowPage" @on-change="_changePageSize"></Page>
+            </div>
+
+            <template v-if="commitData.length" v-for="(item,index) in commitData">
+              <commit :imgSize="'58px'" :isShowVideo="false"
+                      :commitText="item.content"
+                      :userName="item.user.name"
+                      :id="item.id"
+                      :loushu="data.commits_count - (commitNowPage - 1 ) * commitPageSize - index"
+                      @commitReply="_commitReply" @commitUp="_commitUp"></commit>
+            </template>
+
+            <div class="no-commit" v-if="!commitData.length">快来添加一条评论吧</div>
           </div>
 
         </div>
@@ -126,10 +149,12 @@
 </template>
 
 <script>
-  import {getShowVideoList,getRecommendVideoList,getHomeVideoList} from 'api/video'
+  import {getShowVideoList,getRecommendVideoList,getHomeVideoList, postStoreCommit} from 'api/video'
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
   import {ERR_OK} from 'api/config';
   import HeaderTitle from 'base/header-title/header-title'
+  import WriteCommit from 'base/write-commit/write-commit'
+  import Commit from 'base/commit/commit'
   export default {
     data() {
       return {
@@ -140,13 +165,21 @@
         fileLongData:[],
         fileNum: 12,
         dataTotal:[],
+
         recommend:{
           tagList: [],
           akiraList: []
         },
+
         recommendData:[],
         recommendDataShow:[],
-        recommendNum: 4
+        recommendNum: 4,
+
+        commitTotalData:[],
+        commitData:[],
+        commitPageSize:8,
+        commitTotal: 0,
+        commitNowPage: 1
       }
     },
     created() {
@@ -154,6 +187,25 @@
       this._getVideoList();
     },
     methods:{
+      _changePageSize(even) {
+        this.commitNowPage = even;
+        this.commitData = this.commitTotalData.slice( (even-1)*this.commitPageSize , even*this.commitPageSize);
+      },
+      _commitSubmit(commit) {
+        postStoreCommit(this.data.id,'video',commit).then(res => {
+          if (res.meta.errno === ERR_OK){
+            this.$Message.success('成功添加评论');
+            this.data.commits_count += 1;
+            this.commitData = this.$_.concat(res.data,this.commitData);
+          }
+        })
+      },
+      _commitReply(id) {
+        console.log(id)
+      },
+      _commitUp(id) {
+        console.log(id)
+      },
       _changeFileShow() {
         this.isShowAllFile = !this.isShowAllFile;
 
@@ -184,9 +236,13 @@
         getShowVideoList(id).then(res => {
           if (res.meta.errno === ERR_OK){
             this.data = res.data;
+
+            this.commitTotalData = res.data.commits;
+            this.commitTotal = this.commitTotalData.length;
+            this.commitData = this.commitTotalData.slice(0,this.commitPageSize);
+
             this.recommend.tagList = res.data.tag;
             this.recommend.akiraList = res.data.akira;
-
             this.fileShortData = res.data.files.slice(0,this.fileNum),
             this.fileLongData = res.data.files;
             this.fileData = this.fileShortData
@@ -232,6 +288,8 @@
     components:{
       HeaderTitle,
       ImageTitleRate,
+      WriteCommit,
+      Commit
     },
     computed:{
       showFile() {
@@ -321,6 +379,18 @@
         margin-top: -25px;
         margin-bottom: 15px;
       }
+    }
+    .no-commit{
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 20px 0;
+      text-align: center;
+      font-size: 13px;
+      width: 100%;
+    }
+    .commit-page{
+      font-size: 13px;
+      margin-top: -30px;
+      margin-bottom: 10px;
     }
   }
 </style>
