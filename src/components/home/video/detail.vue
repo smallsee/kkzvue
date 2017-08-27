@@ -61,7 +61,7 @@
       </div>
 
       <div class="main-right">
-                右
+        <write-rate></write-rate>
       </div>
     </div>
 
@@ -153,6 +153,7 @@
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
   import {ERR_OK} from 'api/config';
   import HeaderTitle from 'base/header-title/header-title'
+  import WriteRate from 'base/write-rate/write-rate'
   import WriteCommit from 'base/write-commit/write-commit'
   import Commit from 'base/commit/commit'
   export default {
@@ -289,7 +290,8 @@
       HeaderTitle,
       ImageTitleRate,
       WriteCommit,
-      Commit
+      Commit,
+      WriteRate
     },
     computed:{
       showFile() {

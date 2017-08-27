@@ -1,8 +1,8 @@
 import storage from './helpers/storageLite'
 
 const MANAGER = 'manager';
-const TOKEN = 'token';
-const AuthUser = 'authUser';
+const TOKEN = 'kkzToken';
+const User = 'kkzUser';
 
 
 export default {
@@ -14,7 +14,7 @@ export default {
    */
   get () {
     return {
-      [AuthUser]: storage.get(AuthUser),
+      [TOKEN]: storage.get(TOKEN),
     }
   },
 
@@ -41,6 +41,6 @@ export default {
    * @return {boolean}
    */
   loggedIn () {
-    return !!storage.get(AuthUser) && !!storage.get(AuthUser)
+    return !!storage.get(TOKEN) && !!storage.get(User)
   }
 }

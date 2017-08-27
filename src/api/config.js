@@ -17,6 +17,7 @@ export const akiraUrl =  apiDomain + 'api/akira';
 export const tagUrl =  apiDomain + 'api/tag';
 export const weekUrl =  apiDomain + 'api/week';
 export const commitUrl =  apiDomain + 'api/commit';
+export const searchUrl =  apiDomain + 'api/video/search';
 
 
 export const LoginUrl =  apiDomain + 'api/user/login';

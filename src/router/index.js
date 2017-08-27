@@ -18,6 +18,10 @@ import Video from '@/components/home/video/index'
 import VideoDetail from '@/components/home/video/detail'
 import VideoShow from '@/components/home/video/show'
 import Artisan from '@/components/home/artisan/index'
+import Art from '@/components/home/art/index'
+import ArtShow from '@/components/home/art/show'
+import Login from '@/components/home/login/index'
+import Search from '@/components/home/search/search'
 
 
 
@@ -38,13 +42,26 @@ const router =  new Router({
         { path: '/video/detail/:id', component: VideoDetail, name: '视频详情页',meta: { notKeepAlive: true }},
         { path: '/video/:id', component: VideoShow, name: '视频播放页',meta: { notKeepAlive: true }},
         { path: '/artisan', component: Artisan, name: '文章'},
+        { path: '/art', component: Art, name: '画板'},
+        { path: '/art/:id', component: ArtShow, name: '画板详情页'},
       ]
     },
-
     {
       path: '/admin/login',
       name: '后台登陆',
       component: AdminLogin,
+      hidden: true
+    },
+    {
+      path: '/login',
+      name: '前台登陆',
+      component: Login,
+      hidden: true
+    },
+    {
+      path: '/search',
+      name: '搜索',
+      component: Search,
       hidden: true
     },
     {
@@ -81,9 +98,9 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!auth.loggedIn()) {
-      // next({
-      //   name: '后台登陆'
-      // })
+      next({
+        name: '前台登陆'
+      });
       next()
     } else {
       next()

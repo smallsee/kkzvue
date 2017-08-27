@@ -57,7 +57,7 @@
       }
     },
     created() {
-      console.log(JSON.parse(localStorage.getItem('authUser')))
+//      console.log(JSON.parse(localStorage.getItem('authUser')))
     },
     methods: {
       handleSubmit(name) {

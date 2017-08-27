@@ -11,7 +11,7 @@
         <h3 class="title word-break"  v-bind:class="classObject" :style="{'max-height':maxHeight}">{{videoTitle}}</h3>
       </a>
 
-      <div class="video-info" :class="{'flex-row-end' : isFlexEnd}">
+      <div class="video-info" :class="{'flex-row-end' : isFlexEnd}" v-if="isShowText">
         <a class="user-name"  :href="userUrl">{{userName}}</a>
         <span>{{time}}</span>
         &nbsp;|&nbsp;
@@ -31,6 +31,10 @@
       isFlexEnd:{
         type:Boolean,
         default: false
+      },
+      isShowText:{
+        type:Boolean,
+        default: true
       },
       isBorderBottom:{
         type:Boolean,

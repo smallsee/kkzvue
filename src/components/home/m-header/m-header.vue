@@ -16,22 +16,73 @@
       </span>
     </div>
 
-    <Input v-model="searchData" @on-enter="search" @on-click="search" icon="search" placeholder="请输入搜索内容..." style="width: 200px"></Input>
+    <Input v-model="searchText" @on-enter="search" @on-click="search" icon="search" placeholder="请输入搜索内容..." style="width: 200px"></Input>
     </div>
+
+
+    <Modal
+      v-model="isShowSearch"
+      title="搜索结果"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <p>有{{searchData.length}}搜索结果,搜索关键词为{{searchText}}</p>
+      <template v-for="(item,index) in searchData">
+        <image-title-row
+          :isBox="true"
+          :isFlexEnd="true"
+          :isShowText="false"
+          :img="item.thumb"
+          :videoTitle="item.title"
+          :videoUrl="'/#/video/detail/' + item.id"
+        ></image-title-row>
+      </template>
+
+    </Modal>
+
   </div>
 </template>
 
 <script>
+  import ImageTitleRow from 'base/image-title-row/image-title-row'
+  import {getSearchVideo} from 'api/video';
+  import {ERR_OK} from 'api/config';
+
   export default {
     data() {
       return {
-        searchData: ''
+        searchData:[],
+        searchText: '',
+        isShowSearch: false
       }
     },
     methods: {
       search() {
-        console.log('search')
+
+        if (this.searchText){
+          getSearchVideo(this.searchText).then(res => {
+            if (res.videos){
+              this.searchData = res.videos;
+            }else {
+              this.searchData = []
+            }
+
+          });
+
+          this.isShowSearch = true
+        }else{
+          this.$Message.info('请输入内容在提交吧');
+        }
+
+      },
+      ok () {
+        this.searchText = '';
+      },
+      cancel () {
+        this.searchText = '';
       }
+    },
+    components: {
+      ImageTitleRow
     }
   }
 </script>
