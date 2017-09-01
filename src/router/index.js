@@ -8,7 +8,12 @@ import Admin from '@/components/admin/index'
 import AdminVideo from '@/components/admin/video/index'
 import AdminVideoCreate from '@/components/admin/video/create'
 import AdminVideoUpdate from '@/components/admin/video/update'
+import AdminArt from '@/components/admin/art/index'
+import AdminArtCreate from '@/components/admin/art/create'
+import AdminArtUpdate from '@/components/admin/art/update'
 import AdminArticle from '@/components/admin/article/index'
+import AdminArticleCreate from '@/components/admin/article/create'
+import AdminArticleUpdate from '@/components/admin/article/update'
 import AdminLogin from '@/components/admin/login/index'
 
 //前台
@@ -43,7 +48,7 @@ const router =  new Router({
         { path: '/video/:id', component: VideoShow, name: '视频播放页',meta: { notKeepAlive: true }},
         { path: '/artisan', component: Artisan, name: '文章'},
         { path: '/art', component: Art, name: '画板'},
-        { path: '/art/:id', component: ArtShow, name: '画板详情页'},
+        { path: '/art/:id', component: ArtShow, name: '画板详情页',meta: { notKeepAlive: true }},
       ]
     },
     {
@@ -87,6 +92,21 @@ const router =  new Router({
       },
       children: [
         { path: '/admin/article', component: AdminArticle, name: '文章列表页',index:'2-1',},
+        { path: '/admin/article/create', component: AdminArticleCreate, name: '文章添加页',index:'2-2',},
+        { path: '/admin/article/update', component: AdminArticleUpdate, name: '文章修改页',index:'2-3', hidden: true},
+      ]
+    },
+    {
+      path: '/admin',
+      name: '画板',
+      component: Admin,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        { path: '/admin/art', component: AdminArt, name: '画板列表页',index:'3-1',},
+        { path: '/admin/art/create', component: AdminArtCreate, name: '画板创造页',index:'3-2',},
+        { path: '/admin/art/update', component: AdminArtUpdate, name: '画板修改页',index:'3-3', hidden: true},
       ]
     }
   ]

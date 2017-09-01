@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import {getArticleList,deleteArticle} from 'api/article';
+  import {getArtList,deleteArt} from 'api/art';
   import {ERR_OK} from 'api/config';
 
   export default {
@@ -67,7 +67,7 @@
                   height: '50px',
                 },
                 attrs: {
-                  src:  this.data[params.index].thumb
+                  src:  this.data[params.index].images[0].url
                 },
                 on: {
                   click: () => {
@@ -76,10 +76,6 @@
                 }
               });
             }
-          },
-          {
-            title: '话题',
-            key: 'topic'
           },
           {
             title: '状态',
@@ -160,7 +156,7 @@
         this.data = this.dataTotal.slice( (even-1)*this.pageSize , even*this.pageSize);
       },
       _getArtList() {
-        getArticleList().then((res) => {
+        getArtList().then((res) => {
           if (res.meta.errno === ERR_OK){
             this.dataTotal = res.data;
             this.data = this.dataTotal.slice(0,this.pageSize);
@@ -178,8 +174,8 @@
         })
       },
       update (index) {
-        console.log(this.data[index]);
-        this.$router.push({ name: '文章修改页', params: { formValidate: this.data[index] }})
+        console.log(this.data[index])
+        this.$router.push({ name: '画板修改页', params: { formValidate: this.data[index] }})
       },
       openDelModel (index) {
         this.delModel = true;
@@ -187,7 +183,7 @@
 
       },
       del() {
-        deleteArticle(this.data[this.readyDel].id).then(res => {
+        deleteArt(this.data[this.readyDel].id).then(res => {
           if (res.meta.errno === ERR_OK){
             this.$Message.success(res.data);
             this.delModel = false;

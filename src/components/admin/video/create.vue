@@ -1,4 +1,5 @@
 <template>
+  <div class="kkz-admin-video-create">
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
 
         <Form-item label="标题" prop="title">
@@ -150,6 +151,7 @@
             <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
         </Form-item>
     </Form>
+  </div>
 </template>
 <script>
   import ICol from "../../../../node_modules/iview/src/components/grid/col";
@@ -382,44 +384,47 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss" rel="stylesheet/scss">
+    .kkz-admin-video-create{
     .ivu-upload.ivu-upload-drag{
-        border: 0;
+      border: 0;
     }
     .demo-upload-list{
-        display: inline-block;
-        width: 80px;
-        height: 80px;
-        text-align: center;
-        line-height: 80px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        overflow: hidden;
-        background: #fff;
-        position: relative;
-        box-shadow: 0 1px 1px rgba(0,0,0,.2);
-        margin-right: 4px;
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      text-align: center;
+      line-height: 80px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #fff;
+      position: relative;
+      box-shadow: 0 1px 1px rgba(0,0,0,.2);
+      margin-right: 4px;
     }
     .demo-upload-list img{
-        width: 100%;
-        height: 100%;
+      width: 100%;
+      height: 100%;
     }
     .demo-upload-list-cover{
-        display: none;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0,0,0,.6);
+      display: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,.6);
     }
     .demo-upload-list:hover .demo-upload-list-cover{
-        display: block;
+      display: block;
     }
     .demo-upload-list-cover i{
-        color: #fff;
-        font-size: 20px;
-        cursor: pointer;
-        margin: 0 2px;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      margin: 0 2px;
     }
+  }
+
 </style>
