@@ -3,7 +3,7 @@
     <a :href="url">
       <img v-lazy="img" alt="">
     </a>
-    <h3 :style="{ width:  width+ 'px',   'text-align': textAlign,'font-size': textFont}">{{text}}</h3>
+    <h3 :style="{ width:  width+ 'px',   'text-align': textAlign,'font-size': textFont,'color':textColor}">{{text}}</h3>
   </div>
 </template>
 
@@ -45,6 +45,11 @@
       textFont:{
         type: String,
         default: '16px'
+      },
+
+      textColor:{
+        type: String,
+        default: 'white'
       }
 
     }

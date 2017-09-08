@@ -22,7 +22,8 @@ import Home from '@/components/home/home/index'
 import Video from '@/components/home/video/index'
 import VideoDetail from '@/components/home/video/detail'
 import VideoShow from '@/components/home/video/show'
-import Artisan from '@/components/home/artisan/index'
+import Article from '@/components/home/article/index'
+import ArticleShow from '@/components/home/article/show'
 import Art from '@/components/home/art/index'
 import ArtShow from '@/components/home/art/show'
 import Login from '@/components/home/login/index'
@@ -46,7 +47,8 @@ const router =  new Router({
         { path: '/video', component: Video, name: '视频',},
         { path: '/video/detail/:id', component: VideoDetail, name: '视频详情页',meta: { notKeepAlive: true }},
         { path: '/video/:id', component: VideoShow, name: '视频播放页',meta: { notKeepAlive: true }},
-        { path: '/artisan', component: Artisan, name: '文章'},
+        { path: '/article', component: Article, name: '文章'},
+        { path: '/article/:id', component: ArticleShow, name: '文章详情页',meta: { notKeepAlive: true }},
         { path: '/art', component: Art, name: '画板'},
         { path: '/art/:id', component: ArtShow, name: '画板详情页',meta: { notKeepAlive: true }},
       ]

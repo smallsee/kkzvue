@@ -149,7 +149,8 @@
 </template>
 
 <script>
-  import {getShowVideoList,getRecommendVideoList,getHomeVideoList, postStoreCommit} from 'api/video'
+  import {getShowVideoList,getRecommendVideoList,getHomeVideoList} from 'api/video'
+  import {postStoreCommit} from 'api/common'
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
   import {ERR_OK} from 'api/config';
   import HeaderTitle from 'base/header-title/header-title'

@@ -15,8 +15,12 @@
           <span class="tab-link">画板</span>
         </router-link>
 
-        <router-link tag="div" class="tab-item" to="/artisan">
+        <router-link tag="div" class="tab-item" to="/article">
           <span class="tab-link">文章</span>
+        </router-link>
+
+        <router-link tag="div" class="tab-item" to="/shop">
+          <span class="tab-link">周边</span>
         </router-link>
 
       </div>

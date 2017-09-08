@@ -1,4 +1,6 @@
 export const ERR_OK = 0;
+export const has_delete = 1001;
+export const has_store = 1002;
 export const apiDomain = 'http://127.0.0.1:8000/';
 
 export const imageDeleteUrl =  apiDomain + 'api/image/delete';
@@ -16,6 +18,7 @@ export const artUrl =  apiDomain + 'api/admin/art';
 export const articleUrl =  apiDomain + 'api/admin/article';
 
 export const videoHomeUrl =  apiDomain + 'api/video';
+export const videoHomeHotUrl =  apiDomain + 'api/video/hot';
 export const videoShowUrl =  apiDomain + 'api/admin/video';
 export const videoRecommendUrl =  apiDomain + 'api/video/recommend';
 
@@ -24,6 +27,7 @@ export const akiraUrl =  apiDomain + 'api/akira';
 export const tagUrl =  apiDomain + 'api/tag';
 export const weekUrl =  apiDomain + 'api/week';
 export const commitUrl =  apiDomain + 'api/commit';
+export const FavUrl =  apiDomain + 'api/fav';
 export const searchUrl =  apiDomain + 'api/video/search';
 
 

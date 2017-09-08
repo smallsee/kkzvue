@@ -1,7 +1,7 @@
 <template>
-  <a :href="url" class="a-background" :style="{padding: padding}">
+  <div  class="a-background" :style="{padding: padding}" @click.stop="_changeData">
     {{text}}
-  </a>
+  </div>
 </template>
 
 <script>
@@ -11,13 +11,14 @@
         type: String,
         default: "海贼王"
       },
-      url:{
-        type: String,
-        default: "#"
-      },
       padding:{
         type: String,
         default: "6px 8px"
+      }
+    },
+    methods:{
+      _changeData(){
+        this.$emit('select', this.text);
       }
     }
   }
@@ -26,6 +27,7 @@
 <style scoped lang="scss" rel="stylesheet/scss">
   @import "../../common/sass/variable";
   .a-background{
+    cursor: pointer;
     display: inline-block;
     letter-spacing: normal;
     margin: 5px 5px 0 0;

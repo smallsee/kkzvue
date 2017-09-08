@@ -1,18 +1,20 @@
 <template>
   <div class="write-commit">
-    <header-title :headerTitle="title"></header-title>
+    <template v-if="showTitle">
+      <header-title :headerTitle="title"></header-title>
+    </template>
 
     <div class="flex-row-between">
-      <div class="thumb">
+      <div class="thumb" v-if="showThumb">
         <img v-lazy="img" alt="">
 
         <a :href="userUrl" class="user-name">{{userName}}</a>
       </div>
 
-      <div class="clearfix commit-content">
+      <div class="clearfix commit-content" :style="{ width:  commitWidth+ 'px'}">
         <Input v-model="commit" type="textarea" :autosize="{minRows: 3,maxRows: 5}" placeholder="请输入您的意见..."></Input>
 
-        <div class="flex-row-end commit-submit">
+        <div class="flex-row-end commit-submit" >
           <Button type="success" @click.stop="_commitSubmit">发表</Button>
         </div>
 
@@ -32,8 +34,8 @@
     },
     methods:{
       _commitSubmit() {
-        if (this.commit.length < 10){
-          this.$Message.error('至少输入10个字在评论嘛');
+        if (this.commit.length < 5){
+          this.$Message.error('至少输入5个字在评论嘛');
         }else{
           this.$emit('commitSubmit', this.commit);
           this.commit = '';
@@ -54,6 +56,14 @@
         type: String,
         default: 'http://ohadc19qz.bkt.clouddn.com/00034acdc2f7c957146a84de54bfef0c'
       },
+      showTitle:{
+        type: Boolean,
+        default: true
+      },
+      showThumb:{
+        type: Boolean,
+        default: true
+      },
       title: {
         type: String,
         default: '发表短评'
@@ -61,6 +71,10 @@
       url: {
         type: String,
         default: '#'
+      },
+      commitWidth: {
+        type: Number,
+        default: 650
       }
     },
     components:{
@@ -91,7 +105,6 @@
       }
     }
     .commit-content{
-      width: 650px;
       .commit-submit{
         margin-top: 10px;
       }

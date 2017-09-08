@@ -107,12 +107,13 @@
     }
     .content{
       margin-top: 10px;
-      min-width: 195px;
+      width: 100%;
       .title{
         color: #444;
         text-decoration: none;
         font-size: 16px;
         font-weight: 700;
+        line-height: 16px;
       }
       .video-info{
         a{

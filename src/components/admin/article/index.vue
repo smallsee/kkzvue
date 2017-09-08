@@ -150,7 +150,7 @@
       }
     },
     created() {
-      this._getArtList()
+      this._getArticleList()
     },
     methods: {
       _changePageSize(even){
@@ -159,7 +159,7 @@
       _changePage(even){
         this.data = this.dataTotal.slice( (even-1)*this.pageSize , even*this.pageSize);
       },
-      _getArtList() {
+      _getArticleList() {
         getArticleList().then((res) => {
           if (res.meta.errno === ERR_OK){
             this.dataTotal = res.data;

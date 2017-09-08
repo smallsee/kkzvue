@@ -21,6 +21,14 @@ export function postArticleStoreList(formData) {
 }
 
 
+export function getShowArticleList(id) {
+
+  return axios.get(articleUrl + '/' +id).then((res) => {
+    return res.data
+  })
+
+}
+
 
 export function getArticleList() {
 

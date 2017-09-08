@@ -1,11 +1,19 @@
 import axios from 'axios'
 import Mock from 'mockjs';
-import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl,videoRecommendUrl,commitUrl,searchUrl} from "./config"
+import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl,videoRecommendUrl,searchUrl,videoHomeHotUrl} from "./config"
 
 
 export function getHomeVideoList() {
 
   return axios.get(videoHomeUrl).then((res) => {
+    return res.data
+  })
+
+}
+
+export function getHomeHotVideoList() {
+
+  return axios.get(videoHomeHotUrl).then((res) => {
     return res.data
   })
 
@@ -91,21 +99,6 @@ export function deleteVideo(id) {
     method: 'delete',
     url: videoUrl + '/' + id,
   }).then((res) => {
-    return res.data;
-  })
-}
-
-
-export function postStoreCommit(id,type,commit) {
-  return axios({
-    method: 'post',
-    url: commitUrl,
-    data:{
-      id: id,
-      type: type,
-      commit: commit
-    },
-  }).then(res => {
     return res.data;
   })
 }
