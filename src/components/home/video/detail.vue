@@ -137,12 +137,40 @@
           </div>
 
         </div>
-        <div class="main-right">右</div>
+        <div class="main-right">
+
+          <header-title :headerTitle="'热门文章'" ></header-title>
+
+          <template v-for="(item,index) in articleHot">
+            <image-title-row
+              :isFlexEnd="true"
+              :img="item.thumb"
+              :videoTitle="item.title"
+              :videoUrl="'/#/article/' + item.id"
+              :num="item.see + '次观看'"
+            ></image-title-row>
+          </template>
+
+          <header-title :headerTitle="'热门画板'" ></header-title>
+
+          <template v-for="(item,index) in artHot">
+            <image-title-row
+              :isFlexEnd="true"
+              :img="item.images[0]['url']"
+              :videoTitle="item.title"
+              :videoUrl="'/#/art/' + item.id"
+              :num="item.see + '次观看'"
+            ></image-title-row>
+          </template>
+
+        </div>
+
+        </div>
       </div>
     </div>
 
 
-  </div>
+
 
 
 
@@ -150,6 +178,8 @@
 
 <script>
   import {getShowVideoList,getRecommendVideoList,getHomeVideoList} from 'api/video'
+  import {getHotArticleList} from 'api/article'
+  import {getHotArtList} from 'api/art'
   import {postStoreCommit} from 'api/common'
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
   import {ERR_OK} from 'api/config';
@@ -157,6 +187,7 @@
   import WriteRate from 'base/write-rate/write-rate'
   import WriteCommit from 'base/write-commit/write-commit'
   import Commit from 'base/commit/commit'
+  import ImageTitleRow from 'base/image-title-row/image-title-row'
   export default {
     data() {
       return {
@@ -181,14 +212,43 @@
         commitData:[],
         commitPageSize:8,
         commitTotal: 0,
-        commitNowPage: 1
+        commitNowPage: 1,
+
+        articleHot:[],
+        articleHotPage: 5,
+
+        artHot:[],
+        artHotPage: 5,
       }
     },
     created() {
       this._getVideoData(this.$route.params.id);
       this._getVideoList();
+      this._getArticleHotList();
+      this._getArtHotList();
     },
     methods:{
+      _getArtHotList(){
+        getHotArtList().then((res) => {
+          if (res.meta.errno === ERR_OK){
+            console.log(res.data);
+            this.artHot = res.data.slice(0,this.artHotPage);
+          }else{
+            this.$Message.error(res.message);
+          }
+
+        })
+      },
+      _getArticleHotList(){
+        getHotArticleList().then((res) => {
+          if (res.meta.errno === ERR_OK){
+            this.articleHot = res.data.slice(0,this.articleHotPage);
+          }else{
+            this.$Message.error(res.message);
+          }
+
+        })
+      },
       _changePageSize(even) {
         this.commitNowPage = even;
         this.commitData = this.commitTotalData.slice( (even-1)*this.commitPageSize , even*this.commitPageSize);
@@ -292,7 +352,8 @@
       ImageTitleRate,
       WriteCommit,
       Commit,
-      WriteRate
+      WriteRate,
+      ImageTitleRow
     },
     computed:{
       showFile() {
@@ -368,6 +429,8 @@
         }
       }
       .main-right{
+        box-sizing: border-box;
+        padding-left: 15px;
         width: 250px;
         height: auto;
       }

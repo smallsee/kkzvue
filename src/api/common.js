@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {commitUrl,FavUrl} from "./config"
+import {commitUrl,FavUrl,FanUrl,hasFanUrl} from "./config"
 
 
 
@@ -32,3 +32,28 @@ export function postStoreFav(id,type,commit) {
   })
 }
 
+export function postStoreFan(fan_id,star_id) {
+  return axios({
+    method: 'post',
+    url: FanUrl,
+    data:{
+      fan_id: fan_id,
+      star_id: star_id
+    },
+  }).then(res => {
+    return res.data;
+  })
+}
+
+export function gethasFan(fan_id,star_id) {
+  return axios({
+    method: 'get',
+    url: hasFanUrl,
+    params:{
+      fan_id: fan_id,
+      star_id: star_id
+    },
+  }).then(res => {
+    return res.data;
+  })
+}

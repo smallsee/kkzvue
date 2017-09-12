@@ -1,7 +1,13 @@
 import axios from 'axios'
-import {artStoreUrl,artUrl} from "./config"
+import {artUrl,artHotUrl} from "./config"
 
+export function getHotArtList() {
 
+  return axios.get(artHotUrl).then((res) => {
+    return res.data
+  })
+
+}
 
 export function getArtList() {
 
@@ -15,7 +21,7 @@ export function postArtStoreList(formData) {
 
   return axios({
     method: 'post',
-    url: artStoreUrl,
+    url: artUrl,
     data: formData
   }).then((res) => {
 

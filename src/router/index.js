@@ -27,6 +27,7 @@ import ArticleShow from '@/components/home/article/show'
 import Art from '@/components/home/art/index'
 import ArtShow from '@/components/home/art/show'
 import Login from '@/components/home/login/index'
+import Register from '@/components/home/register/index'
 import Search from '@/components/home/search/search'
 
 
@@ -63,6 +64,12 @@ const router =  new Router({
       path: '/login',
       name: '前台登陆',
       component: Login,
+      hidden: true
+    },
+    {
+      path: '/register',
+      name: '前台注册',
+      component: Register,
       hidden: true
     },
     {

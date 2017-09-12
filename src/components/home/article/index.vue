@@ -78,11 +78,11 @@
                 <div class="info flex-row-between">
                   <div class="detail">
                     <i class="fa fa-star-o"></i>
-                    <span>1</span>
+                    <span>{{item.favs_count}}</span>
                     <i class="fa fa-eye"></i>
                     <span>{{item.see}}</span>
                     <i class="fa fa-comment-o"></i>
-                    <span>1</span>
+                    <span>{{item.commits_count}}</span>
                   </div>
                   <a :href="'/#/article/' + item.id">
                   <span>阅读全文</span>
@@ -439,7 +439,7 @@
         }
       }
       .right{
-        width: 170px;
+        width: 180px;
         .title{
           display: inline-block;
           margin-bottom: 15px;

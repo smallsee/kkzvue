@@ -16,10 +16,15 @@
       </span>
     </div>
 
-    <Input v-model="searchText" @on-enter="search" @on-click="search" icon="search" placeholder="请输入搜索内容..." style="width: 200px"></Input>
+    <div class="search">
+      <Select v-model="searchTypeNow" style="width:60px" size="small">
+        <Option v-for="item in searchType" :value="item.value" :key="item.value">{{ item.label }}</Option>
+      </Select>
+
+      <Input size="small" v-model="searchText" @on-enter="search" @on-click="search" icon="search" placeholder="请输入搜索内容..." style="width: 200px"></Input>
     </div>
 
-
+    </div>
     <Modal
       v-model="isShowSearch"
       title="搜索结果"
@@ -52,12 +57,32 @@
       return {
         searchData:[],
         searchText: '',
-        isShowSearch: false
+        isShowSearch: false,
+        searchTypeNow: 'video',
+        searchType: [
+          {
+            value: 'video',
+            label: '视频'
+          },
+          {
+            value: 'article',
+            label: '文章'
+          },
+          {
+            value: 'art',
+            label: '画板'
+          },
+          {
+            value: 'shop',
+            label: '周边'
+          }
+        ],
       }
     },
     methods: {
       search() {
 
+        console.log(this.searchTypeNow);
         if (this.searchText){
           getSearchVideo(this.searchText).then(res => {
             if (res.videos){
@@ -102,6 +127,9 @@
     .purpose{
       line-height: 40px;
       font-size: 14px;
+    }
+    .search{
+      margin-top: 8px;
     }
 
   }

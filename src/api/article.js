@@ -1,5 +1,14 @@
 import axios from 'axios'
-import {articleUrl,topicUrl} from "./config"
+import {articleUrl,topicUrl,articleHotUrl} from "./config"
+
+
+export function getHotArticleList() {
+
+  return axios.get(articleHotUrl).then((res) => {
+    return res.data
+  })
+
+}
 
 export function getTopicList() {
   return axios.get(topicUrl).then((res) => {
@@ -21,9 +30,9 @@ export function postArticleStoreList(formData) {
 }
 
 
-export function getShowArticleList(id) {
+export function getShowArticleList(id,api_token) {
 
-  return axios.get(articleUrl + '/' +id).then((res) => {
+  return axios.get(articleUrl + '/' +id + '?api_token=' + api_token).then((res) => {
     return res.data
   })
 

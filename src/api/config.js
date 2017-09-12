@@ -6,16 +6,19 @@ export const apiDomain = 'http://127.0.0.1:8000/';
 export const imageDeleteUrl =  apiDomain + 'api/image/delete';
 
 export const loginUrl =  apiDomain + 'oauth/token';
+export const RegisterUrl =  apiDomain + 'api/user/register';
 export const userUrl =  apiDomain + 'api/user';
 
 export const videoUrl =  apiDomain + 'api/admin/video';
 export const videoStoreUrl =  apiDomain + 'api/admin/video';
 
 
-export const artStoreUrl =  apiDomain + 'api/admin/art';
+
 export const artUrl =  apiDomain + 'api/admin/art';
+export const artHotUrl =  apiDomain + 'api/art/hot';
 
 export const articleUrl =  apiDomain + 'api/admin/article';
+export const articleHotUrl =  apiDomain + 'api/article/hot';
 
 export const videoHomeUrl =  apiDomain + 'api/video';
 export const videoHomeHotUrl =  apiDomain + 'api/video/hot';
@@ -27,6 +30,8 @@ export const akiraUrl =  apiDomain + 'api/akira';
 export const tagUrl =  apiDomain + 'api/tag';
 export const weekUrl =  apiDomain + 'api/week';
 export const commitUrl =  apiDomain + 'api/commit';
+export const FanUrl =  apiDomain + 'api/fan';
+export const hasFanUrl =  apiDomain + 'api/hasfan';
 export const FavUrl =  apiDomain + 'api/fav';
 export const searchUrl =  apiDomain + 'api/video/search';
 

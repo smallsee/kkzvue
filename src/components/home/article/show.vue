@@ -13,14 +13,15 @@
       <div class="book_list_left" style="border-bottom: 0">
         <div class="user-info">
           <div class="user-thumb">
-            <img src="./banner.jpg" alt="">
+            <img v-lazy="user.thumb" alt="">
           </div>
           <div class="user-name" style="" >{{user.name}}</div>
 
-          <a class="user-star">取消关注</a>
+          <template v-if="isLogin">
+            <div v-if="hasFan" class="user-star" @click="_fanChange(user.id)">取消关注</div>
 
-          <a class="user-star">关注</a>
-
+            <div v-if="!hasFan" class="user-star" @click="_fanChange(user.id)">关注</div>
+          </template>
         </div>
       </div>
       <div class="book_list_right">
@@ -68,11 +69,11 @@
             <!--sasd-->
           <!--</div>-->
 
-          <!--<div class="hide_thing">-->
-            <!--<p  style="cursor: pointer" @click="_openCommit">点击评论</p>-->
-          <!--</div>-->
+          <div class="hide_thing" v-if="!isLogin">
+            <p  style="cursor: pointer" @click="_openLogin">点击登陆后评论</p>
+          </div>
 
-          <div style="padding: 20px;box-sizing: border-box">
+          <div style="padding: 20px;box-sizing: border-box" v-if="isLogin">
             <write-commit :showThumb="false" :showTitle="false" :commitWidth="685" @commitSubmit="_commitSubmit"></write-commit>
           </div>
 
@@ -92,7 +93,7 @@
           <div class="book_list_left">
             <div class="user-info">
               <div class="user-thumb">
-                <img src="./banner.jpg" alt="">
+                <img v-lazy="item.user.thumb" alt="">
               </div>
               <div class="user-name">{{item.user.name}}</div>
 
@@ -123,7 +124,7 @@
 </template>
 
 <script>
-  import {postStoreCommit,postStoreFav} from 'api/common'
+  import {postStoreCommit,postStoreFav,postStoreFan,gethasFan} from 'api/common'
   import {getShowArticleList} from 'api/article';
   import {ERR_OK,has_delete,has_store} from 'api/config';
   import WriteCommit from 'base/write-commit/write-commit'
@@ -141,16 +142,25 @@
         commitNowPage: 1,
 
         isShowCommit:false,
-        isFav:false
+        isFav:false,
+        api_token: true,
+        hasFan:false
       }
     },
     created() {
-//      console.log(new Date().getMinutes());
-      this._getArticleData(this.$route.params.id);
+      if (!this.isLogin){
+        this.api_token = false;
+      }
+      this._getArticleData(this.$route.params.id,this.api_token);
     },
     methods:{
       _openCommit(){
         this.isShowCommit = true;
+      },
+      _openLogin(){
+        this.$router.push({
+          path: '/login'
+        });
       },
       _changePageSize(even) {
         this.commitNowPage = even;
@@ -166,23 +176,37 @@
           }
         })
       },
+      _fanChange(star_id){
+        postStoreFan(this.userNow.id, star_id).then(res => {
+
+            if (res.meta.errno === has_delete){
+              this.$Message.success('取消关注');
+              this.hasFan = false
+            }
+            if (res.meta.errno === has_store){
+              this.$Message.success('成功关注');
+              this.hasFan = true
+            }
+
+        })
+      },
       _favChange() {
         postStoreFav(this.data.id,'article').then(res => {
           if (res.meta.errno === has_delete){
-            this.$Message.success('成功改变收藏');
+            this.$Message.success('取消收藏');
               this.isFav = false
           }
           if (res.meta.errno === has_store){
-            this.$Message.success('成功改变收藏');
+            this.$Message.success('成功收藏');
             this.isFav = true
           }
         })
       },
-      _getArticleData(id){
-        getShowArticleList(id).then(res => {
+      _getArticleData(id,api_token){
+        getShowArticleList(id,api_token).then(res => {
           if (res.meta.errno === ERR_OK){
 
-            console.log(res.data);
+
             this.data = res.data;
             this.user = res.data.user;
             this.isFav = res.data.hasfav;
@@ -190,8 +214,28 @@
             this.commitTotalData = res.data.commits;
             this.commitTotal = this.commitTotalData.length;
             this.commitData = this.commitTotalData.slice(0,this.commitPageSize);
+
+            this._hasFan();
           }
         })
+      },
+      _hasFan(){
+        gethasFan(this.userNow.id, this.user.id).then(res => {
+          if (res.meta.errno === has_delete){
+            this.hasFan = true
+          }
+          if (res.meta.errno === has_store){
+            this.hasFan = false
+          }
+        })
+      }
+    },
+    computed: {
+      isLogin() {
+        return this.$store.state.isLogin
+      },
+      userNow() {
+        return this.$store.state.user
       }
     },
     components: {
