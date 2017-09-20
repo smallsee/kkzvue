@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Mock from 'mockjs';
-import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl,videoRecommendUrl,searchUrl,videoHomeHotUrl} from "./config"
+import {videoUrl, videoStoreUrl, tagUrl, akiraUrl, videoHomeUrl, weekUrl,videoShowUrl,videoRecommendUrl,videoHomeHotUrl} from "./config"
 
 
 export function getHomeVideoList() {
@@ -103,15 +103,3 @@ export function deleteVideo(id) {
   })
 }
 
-
-export function getSearchVideo(data) {
-  return axios({
-    method: 'get',
-    url: searchUrl,
-    params:{
-      title: data,
-    },
-  }).then(res => {
-    return res.data;
-  })
-}

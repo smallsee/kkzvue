@@ -30,7 +30,7 @@
       title="搜索结果"
       @on-ok="ok"
       @on-cancel="cancel">
-      <p>有{{searchData.length}}搜索结果,搜索关键词为{{searchText}}</p>
+      <p>搜索类型是{{searchTypeNow}},有{{searchData.length}}搜索结果,搜索关键词为{{searchText}}</p>
       <template v-for="(item,index) in searchData">
         <image-title-row
           :isBox="true"
@@ -38,7 +38,7 @@
           :isShowText="false"
           :img="item.thumb"
           :videoTitle="item.title"
-          :videoUrl="'/#/video/detail/' + item.id"
+          :videoUrl="'/#/' + searchTypeNow + '/' + item.id"
         ></image-title-row>
       </template>
 
@@ -49,7 +49,7 @@
 
 <script>
   import ImageTitleRow from 'base/image-title-row/image-title-row'
-  import {getSearchVideo} from 'api/video';
+  import {getSearch} from 'api/common';
   import {ERR_OK} from 'api/config';
 
   export default {
@@ -84,11 +84,12 @@
 
         console.log(this.searchTypeNow);
         if (this.searchText){
-          getSearchVideo(this.searchText).then(res => {
-            if (res.videos){
-              this.searchData = res.videos;
-            }else {
-              this.searchData = []
+          getSearch(this.searchTypeNow, this.searchText).then(res => {
+
+            if (res.meta.errno === ERR_OK){
+              this.searchData = res.data;
+            }else{
+              this.searchData = [];
             }
 
           });

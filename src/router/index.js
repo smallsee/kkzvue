@@ -29,6 +29,10 @@ import ArtShow from '@/components/home/art/show'
 import Login from '@/components/home/login/index'
 import Register from '@/components/home/register/index'
 import Search from '@/components/home/search/search'
+import User from '@/components/home/user/index'
+import UserFav from '@/components/home/user/fav'
+import UserCommit from '@/components/home/user/commit'
+import UserFan from '@/components/home/user/fan'
 
 
 
@@ -52,6 +56,13 @@ const router =  new Router({
         { path: '/article/:id', component: ArticleShow, name: '文章详情页',meta: { notKeepAlive: true }},
         { path: '/art', component: Art, name: '画板'},
         { path: '/art/:id', component: ArtShow, name: '画板详情页',meta: { notKeepAlive: true }},
+        { path: '/user/:id', component: User, name: '用户面板',meta: { notKeepAlive: true },
+          children: [
+            { path: 'fav/:type', component: UserFav, name: '用户收藏页',meta: { notKeepAlive: true }},
+            { path: 'commit/:type', component: UserCommit, name: '用户评论页',meta: { notKeepAlive: true }},
+            { path: 'fan/:type', component: UserFan, name: '用户好友页',meta: { notKeepAlive: true }}
+          ]
+        },
       ]
     },
     {

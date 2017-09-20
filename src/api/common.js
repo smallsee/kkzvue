@@ -1,8 +1,59 @@
 import axios from 'axios'
-import {commitUrl,FavUrl,FanUrl,hasFanUrl} from "./config"
+import {commitUrl,FavUrl,FanUrl,hasFanUrl,hasFaVUrl,searchUrl,userCommitUrl,userFavUrl,userFanUrl} from "./config"
+
+export function getUserCommit(user_id,commit_type) {
+  return axios({
+    method: 'get',
+    url: userCommitUrl,
+    params:{
+      commit_type: commit_type,
+      user_id: user_id,
+    },
+  }).then(res => {
+    return res.data;
+  })
+}
 
 
 
+export function getUserFan(user_id,type) {
+  return axios({
+    method: 'get',
+    url: userFanUrl,
+    params:{
+      type: type,
+      user_id: user_id,
+    },
+  }).then(res => {
+    return res.data;
+  })
+}
+
+export function getUserFav(user_id,fav_type) {
+  return axios({
+    method: 'get',
+    url: userFavUrl,
+    params:{
+      fav_type: fav_type,
+      user_id: user_id,
+    },
+  }).then(res => {
+    return res.data;
+  })
+}
+
+export function getSearch(type,data) {
+  return axios({
+    method: 'get',
+    url: searchUrl,
+    params:{
+      title: data,
+      type: type,
+    },
+  }).then(res => {
+    return res.data;
+  })
+}
 
 export function postStoreCommit(id,type,commit) {
   return axios({
@@ -52,6 +103,20 @@ export function gethasFan(fan_id,star_id) {
     params:{
       fan_id: fan_id,
       star_id: star_id
+    },
+  }).then(res => {
+    return res.data;
+  })
+}
+
+export function gethasFav(user_id,fav_type,fav_id) {
+  return axios({
+    method: 'get',
+    url: hasFaVUrl,
+    params:{
+      user_id: user_id,
+      fav_type: fav_type,
+      fav_id: fav_id
     },
   }).then(res => {
     return res.data;

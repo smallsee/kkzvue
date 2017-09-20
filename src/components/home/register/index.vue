@@ -2,7 +2,7 @@
 <template>
     <div class="kkz-login">
       <div class="login_image">
-        <img src="./background_login2.jpg" alt="" width="100%" height="100%">
+        <img src="./background_login3.jpg" alt="" width="100%" height="100%">
       </div>
       <Form ref="formLogin" :model="formLogin" :rules="formLoginRules"  class="card-box">
         <Form-item class="formLogin-title">

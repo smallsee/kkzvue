@@ -124,7 +124,7 @@
 </template>
 
 <script>
-  import {postStoreCommit,postStoreFav,postStoreFan,gethasFan} from 'api/common'
+  import {postStoreCommit,postStoreFav,postStoreFan,gethasFan,gethasFav} from 'api/common'
   import {getShowArticleList} from 'api/article';
   import {ERR_OK,has_delete,has_store} from 'api/config';
   import WriteCommit from 'base/write-commit/write-commit'
@@ -152,6 +152,7 @@
         this.api_token = false;
       }
       this._getArticleData(this.$route.params.id,this.api_token);
+      this._hasFav();
     },
     methods:{
       _openCommit(){
@@ -209,7 +210,6 @@
 
             this.data = res.data;
             this.user = res.data.user;
-            this.isFav = res.data.hasfav;
             this.created_at = res.data.created_at;
             this.commitTotalData = res.data.commits;
             this.commitTotal = this.commitTotalData.length;
@@ -226,6 +226,16 @@
           }
           if (res.meta.errno === has_store){
             this.hasFan = false
+          }
+        })
+      },
+      _hasFav(){
+        gethasFav(this.userNow.id,'article', this.$route.params.id).then(res => {
+          if (res.meta.errno === has_delete){
+            this.isFav = true
+          }
+          if (res.meta.errno === has_store){
+            this.isFav = false
           }
         })
       }

@@ -51,6 +51,12 @@
   justify-content: space-around;
 }
 
+.flex-column-around{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .no-margin-right{
   margin-right: 0 !important;
 }

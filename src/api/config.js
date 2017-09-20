@@ -30,10 +30,14 @@ export const akiraUrl =  apiDomain + 'api/akira';
 export const tagUrl =  apiDomain + 'api/tag';
 export const weekUrl =  apiDomain + 'api/week';
 export const commitUrl =  apiDomain + 'api/commit';
+export const userCommitUrl =  apiDomain + 'api/user/commit';
+export const userFavUrl =  apiDomain + 'api/user/fav';
+export const userFanUrl =  apiDomain + 'api/user/fan';
 export const FanUrl =  apiDomain + 'api/fan';
 export const hasFanUrl =  apiDomain + 'api/hasfan';
+export const hasFaVUrl =  apiDomain + 'api/hasfav';
 export const FavUrl =  apiDomain + 'api/fav';
-export const searchUrl =  apiDomain + 'api/video/search';
+export const searchUrl =  apiDomain + 'api/search';
 
 
 export const LoginUrl =  apiDomain + 'api/user/login';

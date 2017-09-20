@@ -38,9 +38,9 @@
         </template>
 
         <template v-if="isLogin">
-          <div class="tab-item">
+          <router-link tag="div" class="tab-item" :to="'/user/' + user.id">
             <span>{{user.name}}</span>
-          </div>
+          </router-link>
           <div class="tab-item" @click="_logout">
             <span>登出</span>
           </div>

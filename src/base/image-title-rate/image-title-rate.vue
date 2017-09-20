@@ -1,5 +1,5 @@
 <template>
-  <div class="image-title-rate clearfix" :class="{ 'no-margin-right': isNoMarginRight }"  :style="{ width:  width }">
+  <div class="image-title-rate clearfix" :class="{ 'no-margin-right': isNoMarginRight }"  :style="{ width:  width, 'background-color' : backgroundColor}">
 
 
     <a class="thumb"   :href="url" :style="{width:width,height:imgHeight}">
@@ -55,6 +55,10 @@
         type: String,
         default: '170px'
       },
+      backgroundColor: {
+        type: String,
+        default: '#ffffff'
+      },
       url:{
         type: String,
         default: '#'
@@ -85,7 +89,6 @@
 
 
   .image-title-rate{
-    background-color: #ffffff;
     margin-right: 10px;
     margin-top: 10px;
     .thumb{
@@ -93,6 +96,7 @@
       display: block;
       img{
         width: 100%;
+        height: 100%;
       }
     }
     .title{
