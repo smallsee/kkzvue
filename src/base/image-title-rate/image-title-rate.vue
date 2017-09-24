@@ -6,7 +6,7 @@
       <img  v-lazy="img" alt="" @click.stop="_changeData">
     </a>
 
-    <a @click.stop="_changeData" class="title word-break" :style="{ width:  width+ 'px', 'max-height': maxHeight,margin: titleMargin}" :href="url">{{title}}</a>
+    <a @click.stop="_changeData" class="title word-break" :style="{ 'max-width':  width+ 'px', 'max-height': maxHeight,margin: titleMargin , 'line-height' : lineHeight}" :href="url">{{title}}</a>
 
     <div v-if="isRate"  id="rate" :style="{ width:  width}">
       <Rate show-text  :disabled="disabled" v-model="rateValue">
@@ -54,6 +54,10 @@
       imgHeight: {
         type: String,
         default: '170px'
+      },
+      lineHeight: {
+        type: String,
+        default: '14px'
       },
       backgroundColor: {
         type: String,
@@ -106,6 +110,7 @@
       box-sizing: border-box;
       padding: 0 10px;
       font-size: 14px;
+      overflow: hidden;
     }
     #rate{
       text-align: center;

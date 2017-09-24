@@ -1,19 +1,24 @@
 <template>
   <div class="kkz-commit">
-    <template v-for="(item,index) in data">
-      <div class="commit-box">
-        <commit :time="''"
-                :imgSize="'50px'"
-                :img="item.user.thumb"
-                :userUrl="'#/user/' + item.user.id"
-                :videoTitle="item.commit_title"
-                :userName="item.user.name"
-                :commitText="item.content"
-        ></commit>
+    <template v-if="data.length > 0">
+      <template v-for="(item,index) in data">
+        <div class="commit-box">
+          <commit :time="''"
+                  :imgSize="'50px'"
+                  :img="item.user.thumb"
+                  :userUrl="'#/user/' + item.user.id"
+                  :videoTitle="item.commit_title"
+                  :userName="item.user.name"
+                  :commitText="item.content"
+          ></commit>
+        </div>
+      </template>
+      <div style="float: right; margin-top: 20px">
+        <Page  show-elevator show-sizer :total="total" :page-size="pageSize" :current="1" @on-change="_changePage" @on-page-size-change="_changePageSize"></Page>
       </div>
     </template>
-    <div style="float: right; margin-top: 20px">
-      <Page  show-elevator show-sizer :total="total" :page-size="pageSize" :current="1" @on-change="_changePage" @on-page-size-change="_changePageSize"></Page>
+    <div class="no_data" v-if="data.length === 0">
+      暂时没有数据
     </div>
   </div>
 </template>
@@ -32,7 +37,6 @@
     },
     created(){
       this._getCommitList();
-      console.log(this.$route.params.type)
     },
     methods:{
       _changePageSize(even){
@@ -67,7 +71,6 @@
   .kkz-commit{
     .commit-box{
       box-sizing: border-box;
-      padding: 5px 0;
     }
   }
 </style>

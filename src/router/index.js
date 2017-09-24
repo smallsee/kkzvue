@@ -33,6 +33,11 @@ import User from '@/components/home/user/index'
 import UserFav from '@/components/home/user/fav'
 import UserCommit from '@/components/home/user/commit'
 import UserFan from '@/components/home/user/fan'
+import UserInfo from '@/components/home/user/info'
+import UserPassword from '@/components/home/user/password'
+import UserThumb from '@/components/home/user/thumb'
+import Shop from '@/components/home/shop/index'
+import ShopShow from '@/components/home/shop/show'
 
 
 
@@ -56,11 +61,16 @@ const router =  new Router({
         { path: '/article/:id', component: ArticleShow, name: '文章详情页',meta: { notKeepAlive: true }},
         { path: '/art', component: Art, name: '画板'},
         { path: '/art/:id', component: ArtShow, name: '画板详情页',meta: { notKeepAlive: true }},
+        { path: '/shop', component: Shop, name: '周边'},
+        { path: '/shop/:id', component: ShopShow, name: '周边详情页',meta: { notKeepAlive: true }},
         { path: '/user/:id', component: User, name: '用户面板',meta: { notKeepAlive: true },
           children: [
             { path: 'fav/:type', component: UserFav, name: '用户收藏页',meta: { notKeepAlive: true }},
             { path: 'commit/:type', component: UserCommit, name: '用户评论页',meta: { notKeepAlive: true }},
-            { path: 'fan/:type', component: UserFan, name: '用户好友页',meta: { notKeepAlive: true }}
+            { path: 'fan/:type', component: UserFan, name: '用户好友页',meta: { notKeepAlive: true }},
+            { path: 'info', component: UserInfo, name: '用户个人资料',meta: { notKeepAlive: true }},
+            { path: 'password', component: UserPassword, name: '用户密码',meta: { notKeepAlive: true }},
+            { path: 'thumb', component: UserThumb, name: '用户头像',meta: { notKeepAlive: true }},
           ]
         },
       ]

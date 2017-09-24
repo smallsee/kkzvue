@@ -7,9 +7,9 @@
         </div>
         <div class="user_info">
           <div class="thumb">
-            <img src="./51535095_p0.jpg" alt="" width="100%" height="100%">
+            <img v-lazy="data.thumb" alt="" width="100%" height="100%">
           </div>
-          <h3 class="user_name">小海</h3>
+          <h3 class="user_name">{{data.name}}</h3>
           <p class="content">（签名）</p>
         </div>
       </div>
@@ -19,7 +19,7 @@
             <Row>
 
               <i-col  span="4">
-                <Menu  width="auto" >
+                <Menu  width="auto" :active-name="active_name" :open-names="open_names">
                   <Submenu name="1">
                     <template slot="title">
                       <Icon type="ios-star"></Icon>
@@ -83,23 +83,39 @@
                       </router-link>
                     </MenuItem>
                   </Submenu>
-                  <Submenu name="3">
-                    <template slot="title">
-                      <Icon type="email"></Icon>
-                      消息
+                  <template v-if="isLogin">
+                    <template v-if="user.id == $route.params.id">
+                        <Submenu name="3">
+                          <template slot="title">
+                            <Icon type="email"></Icon>
+                            消息
+                          </template>
+                          <MenuItem name="3-1">私信聊天</MenuItem>
+                          <MenuItem name="3-2">系统消息</MenuItem>
+                        </Submenu>
+                        <Submenu name="4">
+                          <template slot="title">
+                            <Icon type="outlet"></Icon>
+                            个人资料
+                          </template>
+                          <MenuItem name="4-1">
+                            <router-link class="user-item" tag="span"  :to="'/user/' + $route.params.id   + '/info'">
+                              个人信息
+                            </router-link>
+                          </MenuItem>
+                          <MenuItem name="4-2">
+                            <router-link class="user-item" tag="span"  :to="'/user/'+ $route.params.id   +   '/password'">
+                              修改密码
+                            </router-link>
+                          </MenuItem>
+                          <MenuItem name="4-3">
+                            <router-link class="user-item" tag="span"  :to="'/user/'+ $route.params.id   +   '/thumb'">
+                              修改图像
+                            </router-link>
+                          </MenuItem>
+                        </Submenu>
                     </template>
-                    <MenuItem name="3-1">私信聊天</MenuItem>
-                    <MenuItem name="3-2">系统消息</MenuItem>
-                  </Submenu>
-                  <Submenu name="4">
-                    <template slot="title">
-                      <Icon type="outlet"></Icon>
-                      个人资料
-                    </template>
-                    <MenuItem name="4-1">个人资料</MenuItem>
-                    <MenuItem name="4-2">修改资料</MenuItem>
-                    <MenuItem name="4-3">修改密码</MenuItem>
-                  </Submenu>
+                  </template>
                 </Menu>
               </i-col >
 
@@ -118,13 +134,47 @@
 </template>
 
 <script>
+  import {getUser} from 'api/common';
+  import {ERR_OK} from 'api/config';
   export default {
+    data() {
+      return {
+        data: [],
+        active_name: "0",
+        open_names: []
+      }
+    },
+    created() {
+      this._getUser();
+      console.log(this.user.id);
+      console.log(this.$route.params.id);
+    },
     methods:{
+      _getUser() {
+        getUser(this.$route.params.id).then(res => {
+          if (res.meta.errno === ERR_OK){
+            this.data = res.data;
+          }
+        })
+      },
       _clickUserCommit(){
         this.$router.push({
           path: '/user/' + this.$route.params.id + '/fav/article'
         });
       }
+    },
+    computed: {
+      isLogin() {
+        return this.$store.state.isLogin
+      },
+      user() {
+        return this.$store.state.user
+      }
+    },
+    watch: {
+      '$route': function (route) {
+        this._getUser();
+      },
     }
   }
 </script>

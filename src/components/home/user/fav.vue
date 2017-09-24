@@ -9,9 +9,10 @@
                           :maxHeight="'26px'"
                           :isRate="false"
                           :titleMargin="'10px 0'"
-                          :backgroundColor="'rgb(239, 239, 239)'"
+                          :backgroundColor="'rgb(246, 246, 246);'"
                           :isNoMarginRight="(index+1)%4 === 0"
                           :title="item.title"
+                          :lineHeight="'2'"
                           :img="item.thumb"
                           :url="/#/ + $route.params.type + '/' + item.id"
         ></image-title-rate>

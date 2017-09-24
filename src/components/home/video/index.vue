@@ -98,10 +98,10 @@
 
 <script>
   import HeaderTitle from 'base/header-title/header-title'
+  import ImageTitleRow from 'base/image-title-row/image-title-row'
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
   import {getHomeVideoList,getTagList, getAkiraList, getWeekList} from 'api/video';
   import {ERR_OK} from 'api/config';
-  import ImageTitleRow from 'base/image-title-row/image-title-row'
 
   export default {
     data() {

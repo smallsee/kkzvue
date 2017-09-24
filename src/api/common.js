@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {commitUrl,FavUrl,FanUrl,hasFanUrl,hasFaVUrl,searchUrl,userCommitUrl,userFavUrl,userFanUrl} from "./config"
+import {commitUrl,FavUrl,FanUrl,hasFanUrl,hasFaVUrl,searchUrl,userCommitUrl,userFavUrl,userFanUrl,userUrl} from "./config"
 
 export function getUserCommit(user_id,commit_type) {
   return axios({
@@ -14,6 +14,14 @@ export function getUserCommit(user_id,commit_type) {
   })
 }
 
+export function getUser(user_id) {
+  return axios({
+    method: 'get',
+    url: userUrl + '/user/' + user_id,
+  }).then(res => {
+    return res.data;
+  })
+}
 
 
 export function getUserFan(user_id,type) {

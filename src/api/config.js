@@ -42,6 +42,7 @@ export const searchUrl =  apiDomain + 'api/search';
 
 export const LoginUrl =  apiDomain + 'api/user/login';
 export const UserInfoUrl =  apiDomain + 'api/user/me';
+export const UserInfoEditUrl =  apiDomain + 'api/user/info/update';
 
 export const getHeader = function () {
   const tokenData = JSON.parse(window.localStorage.getItem('authUser'));

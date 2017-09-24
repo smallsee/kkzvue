@@ -1,27 +1,32 @@
 <template>
   <div class="kkz-fan">
 
-    <template v-for="(item,index) in data">
-      <div class="user-item flex-row-between">
-        <div class="user flex-row">
-          <a :href="'/#/user/' + item.id">
-          <div class="thumb">
-            <img v-lazy="item.thumb" alt="">
+    <div v-if="data.length > 0">
+      <template v-for="(item,index) in data" >
+        <div class="user-item flex-row-between">
+          <div class="user flex-row">
+            <a :href="'/#/user/' + item.id">
+            <div class="thumb">
+              <img v-lazy="item.thumb" alt="">
+            </div>
+            </a>
+            <a :href="'/#/user/' + item.id" class="name">
+              {{item.name}}
+            </a>
           </div>
-          </a>
-          <a :href="'/#/user/' + item.id" class="name">
-            {{item.name}}
-          </a>
+          <div class="star-type">
+            关注
+          </div>
         </div>
-        <div class="star-type">
-          关注
-        </div>
+      </template>
+      <div style="float: right; margin-top: 20px">
+        <Page  show-elevator show-sizer :total="total" :page-size="pageSize" :current="1" @on-change="_changePage" @on-page-size-change="_changePageSize"></Page>
       </div>
-    </template>
-    <div style="float: right; margin-top: 20px">
-      <Page  show-elevator show-sizer :total="total" :page-size="pageSize" :current="1" @on-change="_changePage" @on-page-size-change="_changePageSize"></Page>
     </div>
+    <div class="no_data" v-if="data.length === 0">
+      暂时没有数据
     </div>
+  </div>
 
 </template>
 
@@ -111,6 +116,12 @@
         color: white;
         cursor: pointer;
       }
+    }
+    .no_data{
+      box-sizing: border-box;
+      padding-top: 20px;
+      font-size: 18px;
+      line-height: 20px;
     }
   }
 </style>

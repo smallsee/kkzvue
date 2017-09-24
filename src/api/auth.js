@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {LoginUrl, UserInfoUrl, RegisterUrl} from "./config"
+import {LoginUrl, UserInfoUrl, RegisterUrl,UserInfoEditUrl} from "./config"
 
 
 export function getUserInfo(token) {
@@ -19,6 +19,19 @@ export function postLogin(formData) {
   return axios({
     method: 'post',
     url: LoginUrl,
+    data: formData
+  }).then((res) => {
+
+    return res.data;
+  })
+
+}
+
+export function postUserInfoUpdate(formData) {
+
+  return axios({
+    method: 'patch',
+    url: UserInfoEditUrl,
     data: formData
   }).then((res) => {
 

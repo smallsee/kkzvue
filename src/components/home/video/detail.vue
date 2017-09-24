@@ -7,9 +7,21 @@
 
 
         <div class="video-info">
+
+          <span class="fav_style" v-if="isFav" @click="_favChange">
+            <i  style="margin-right: 2px;color: #FFAFC9" class="fa fa-star"></i>已收藏
+          </span>
+
+          <span class="fav_style" v-if="!isFav" @click="_favChange">
+            <i  style="margin-right: 2px" class="fa fa-star-o"></i>收藏
+          </span>
+
+
           <h4 class="title word-break">{{data.title}}
           <span>({{data.issue_date}})</span>
-        </h4>
+          </h4>
+
+
 
           <div class="flex-row">
 
@@ -180,9 +192,9 @@
   import {getShowVideoList,getRecommendVideoList,getHomeVideoList} from 'api/video'
   import {getHotArticleList} from 'api/article'
   import {getHotArtList} from 'api/art'
-  import {postStoreCommit} from 'api/common'
+  import {postStoreCommit,postStoreFav,gethasFav} from 'api/common'
   import ImageTitleRate from 'base/image-title-rate/image-title-rate'
-  import {ERR_OK} from 'api/config';
+  import {ERR_OK,has_delete,has_store} from 'api/config';
   import HeaderTitle from 'base/header-title/header-title'
   import WriteRate from 'base/write-rate/write-rate'
   import WriteCommit from 'base/write-commit/write-commit'
@@ -219,6 +231,9 @@
 
         artHot:[],
         artHotPage: 5,
+
+
+        isFav:false,
       }
     },
     created() {
@@ -226,12 +241,34 @@
       this._getVideoList();
       this._getArticleHotList();
       this._getArtHotList();
+      this._hasFav();
     },
     methods:{
+      _favChange() {
+        postStoreFav(this.data.id,'video').then(res => {
+          if (res.meta.errno === has_delete){
+            this.$Message.success('取消收藏');
+            this.isFav = false
+          }
+          if (res.meta.errno === has_store){
+            this.$Message.success('成功收藏');
+            this.isFav = true
+          }
+        })
+      },
+      _hasFav(){
+        gethasFav(this.userNow.id,'video', this.$route.params.id).then(res => {
+          if (res.meta.errno === has_delete){
+            this.isFav = true
+          }
+          if (res.meta.errno === has_store){
+            this.isFav = false
+          }
+        })
+      },
       _getArtHotList(){
         getHotArtList().then((res) => {
           if (res.meta.errno === ERR_OK){
-            console.log(res.data);
             this.artHot = res.data.slice(0,this.artHotPage);
           }else{
             this.$Message.error(res.message);
@@ -355,10 +392,22 @@
       WriteRate,
       ImageTitleRow
     },
+
     computed:{
       showFile() {
         return this.data.files_count > this.fileNum ? true : false;
+      },
+      isLogin() {
+        return this.$store.state.isLogin
+      },
+      userNow() {
+        return this.$store.state.user
       }
+    },
+    watch: {
+      '$route': function (route) {
+        this._hasFav();
+      },
     }
   }
 </script>
@@ -372,6 +421,14 @@
       .main-left{
         width: 720px;
         height: auto;
+        position: relative;
+        .fav_style{
+          font-size: 14px;
+          position: absolute;
+          top: 10px;
+          right: 0;
+          cursor: pointer;
+        }
         .title{
           margin-bottom: 20px;
           letter-spacing:1px;
