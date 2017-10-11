@@ -155,9 +155,9 @@
           }
         })
       },
-      mounted () {
-        this.defaultList = this.$refs.upload.fileList;
-      }
+    },
+    mounted () {
+      this.defaultList = this.$refs.upload.fileList;
     }
   }
 </script>

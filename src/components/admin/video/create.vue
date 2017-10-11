@@ -86,7 +86,7 @@
 
                     </Form-item>
                 </i-col>
-            </Row>
+        </Row>
 
         <Form-item label="声优" prop="akira">
             <Select v-model="formValidate.akira" filterable multiple size="large">

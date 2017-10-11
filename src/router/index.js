@@ -15,6 +15,12 @@ import AdminArticle from '@/components/admin/article/index'
 import AdminArticleCreate from '@/components/admin/article/create'
 import AdminArticleUpdate from '@/components/admin/article/update'
 import AdminLogin from '@/components/admin/login/index'
+import AdminCategory from '@/components/admin/category/index'
+import AdminCategoryCreate from '@/components/admin/category/create'
+import AdminCategoryUpdate from '@/components/admin/category/update'
+import AdminShop from '@/components/admin/shop/index'
+import AdminShopCreate from '@/components/admin/shop/create'
+import AdminShopUpdate from '@/components/admin/shop/update'
 
 //前台
 import HomeApp from '@/components/home/index'
@@ -38,6 +44,7 @@ import UserPassword from '@/components/home/user/password'
 import UserThumb from '@/components/home/user/thumb'
 import Shop from '@/components/home/shop/index'
 import ShopShow from '@/components/home/shop/show'
+import ShopOrder from '@/components/home/shop/order'
 
 
 
@@ -63,6 +70,7 @@ const router =  new Router({
         { path: '/art/:id', component: ArtShow, name: '画板详情页',meta: { notKeepAlive: true }},
         { path: '/shop', component: Shop, name: '周边'},
         { path: '/shop/:id', component: ShopShow, name: '周边详情页',meta: { notKeepAlive: true }},
+        { path: '/order', component: ShopOrder, name: '周边结算页',meta: { notKeepAlive: true }},
         { path: '/user/:id', component: User, name: '用户面板',meta: { notKeepAlive: true },
           children: [
             { path: 'fav/:type', component: UserFav, name: '用户收藏页',meta: { notKeepAlive: true }},
@@ -137,6 +145,32 @@ const router =  new Router({
         { path: '/admin/art', component: AdminArt, name: '画板列表页',index:'3-1',},
         { path: '/admin/art/create', component: AdminArtCreate, name: '画板创造页',index:'3-2',},
         { path: '/admin/art/update', component: AdminArtUpdate, name: '画板修改页',index:'3-3', hidden: true},
+      ]
+    },
+    {
+      path: '/admin',
+      name: '周边分类',
+      component: Admin,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        { path: '/admin/category', component: AdminCategory, name: '分类列表页',index:'4-1',},
+        { path: '/admin/category/create', component: AdminCategoryCreate, name: '分类创造页',index:'4-2',},
+        { path: '/admin/category/update', component: AdminCategoryUpdate, name: '分类修改页',index:'4-3', hidden: true},
+      ]
+    },
+    {
+      path: '/admin',
+      name: '周边',
+      component: Admin,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        { path: '/admin/shop', component: AdminShop, name: '周边列表页',index:'5-1',},
+        { path: '/admin/shop/create', component: AdminShopCreate, name: '周边创造页',index:'5-2',},
+        { path: '/admin/shop/update', component: AdminShopUpdate, name: '周边修改页',index:'5-3', hidden: true},
       ]
     }
   ]

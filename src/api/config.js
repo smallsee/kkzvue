@@ -12,6 +12,9 @@ export const userUrl =  apiDomain + 'api/user';
 export const videoUrl =  apiDomain + 'api/admin/video';
 export const videoStoreUrl =  apiDomain + 'api/admin/video';
 
+export const categoryUrl =  apiDomain + 'api/admin/category';
+export const shopUrl =  apiDomain + 'api/admin/shop';
+
 
 
 export const artUrl =  apiDomain + 'api/admin/art';
